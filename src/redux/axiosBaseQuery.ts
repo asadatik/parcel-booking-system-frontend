@@ -34,5 +34,4 @@ const axiosBaseQuery =
       };
     }
   };
-
 export default axiosBaseQuery;
