@@ -100,8 +100,13 @@ export default function Navbar() {
         {/* Right side */}
         <div className="flex items-center gap-2">
           <ModeToggle />
+          <Button variant ="outline"  className="text-sm">
+            <Link to="/login">Login</Link>
+          </Button>
+               
           <Button asChild className="text-sm">
             <Link to="/login">Login</Link>
+
           </Button>
         </div>
       </div>
