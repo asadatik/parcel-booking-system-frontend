@@ -29,7 +29,9 @@ export function LoginForm({
       if (res.success) {
         toast.success("Logged in successfully");
         navigate("/");
-      }  console.log(res);
+      } 
+      
+      console.log(res);
 
 
     } catch (err) {

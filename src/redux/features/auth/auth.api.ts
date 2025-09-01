@@ -45,14 +45,15 @@ export const authApi = baseApi.injectEndpoints({
         data: userInfo,
       }),
     }),
-    // userInfo: builder.query({
-    //   query: () => ({
-    //     url: "/user/me",
-    //     method: "GET",
-    //   }),
-    //   providesTags: ["USER"],
-    // }),
-  }),
+//
+    userInfo: builder.query({
+      query: () => ({
+        url: "/user/me",
+        method: "GET",
+      }),
+    })
+//
+  })
 });
 
 export const {
@@ -61,4 +62,5 @@ export const {
   useSendOtpMutation,
   useVerifyOtpMutation,
   useLogoutMutation,
+  useUserInfoQuery
 } = authApi;
