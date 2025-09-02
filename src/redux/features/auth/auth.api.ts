@@ -4,6 +4,7 @@ import type { IResponse, ISendOtp, IVerifyOtp } from "@/types";
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
+    //
     login: builder.mutation({
       query: (userInfo) => ({
         url: "/auth/login",
