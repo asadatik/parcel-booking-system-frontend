@@ -2,7 +2,8 @@ import { axiosInstance } from "@/lib/axios";
 import type { BaseQueryFn } from "@reduxjs/toolkit/query";
 import { AxiosError, type AxiosRequestConfig } from "axios";
 
-const axiosBaseQuery =
+const
+axiosBaseQuery =
   (): BaseQueryFn<
     {
       url: string;
@@ -17,12 +18,14 @@ const axiosBaseQuery =
   async ({ url, method, data, params, headers }) => {
     try {
       const result = await axiosInstance({
-        url: url,
+        url,
         method,
         data,
         params,
         headers,
+        withCredentials: true, // 👈 Cookie/token automatic include হবে
       });
+
       return { data: result.data };
     } catch (axiosError) {
       const err = axiosError as AxiosError;
@@ -34,4 +37,5 @@ const axiosBaseQuery =
       };
     }
   };
+
 export default axiosBaseQuery;

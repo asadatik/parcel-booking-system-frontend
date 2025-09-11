@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Button } from "@/components/ui/button";
 import {
@@ -35,7 +36,9 @@ import { useLocation, useNavigate } from "react-router";
 import { toast } from "sonner";
 import z from "zod";
 
-// Zod Validation
+
+
+
 const FormSchema = z.object({
   pin: z.string().min(6, {
     message: "Your one-time password must be 6 characters.",
