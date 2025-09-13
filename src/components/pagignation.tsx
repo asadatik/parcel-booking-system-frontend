@@ -30,7 +30,7 @@ export default function CommonPagination({
   return (
     <Pagination>
       <PaginationContent>
-   
+     
         <PaginationItem>
           <PaginationPrevious
             className="aria-disabled:pointer-events-none aria-disabled:opacity-50"
@@ -40,7 +40,6 @@ export default function CommonPagination({
           />
         </PaginationItem>
 
-        {/* Left ellipsis (...) */}
         {showLeftEllipsis && (
           <PaginationItem>
             <PaginationEllipsis />
@@ -65,7 +64,6 @@ export default function CommonPagination({
           </PaginationItem>
         )}
 
-     
         <PaginationItem>
           <PaginationNext
             className="aria-disabled:pointer-events-none aria-disabled:opacity-50"
