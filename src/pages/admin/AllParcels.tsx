@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { EditParcelModal } from "@/components/modules/modal/EditParcelModal";
-import { ParcelDeleteModal } from "@/components/modules/modal/ParcelDeleteModal";
+import { EditParcelStatusModal } from "@/components/modules/modal/EditParcelStatusModal";
 import Loader from "@/components/modules/shared/Loading";
 import CommonPagination from "@/components/pagignation";
 import {
@@ -13,10 +12,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useGetMyParcelQuery } from "@/redux/features/parcel/parcel.api";
+import { useGetAllParcelQuery } from "@/redux/features/parcel/parcel.api";
 import { useEffect, useState } from "react";
 
-const MyParcel = () => {
+const AllParcels = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [limit] = useState(5);
 
@@ -26,6 +25,7 @@ const MyParcel = () => {
       setCurrentPage(pageFromHash);
     };
 
+   
     handleHashChange();
 
     window.addEventListener("hashchange", handleHashChange);
@@ -35,7 +35,10 @@ const MyParcel = () => {
     };
   }, []);
 
-  const { data, isLoading } = useGetMyParcelQuery({ page: currentPage, limit });
+  const { data, isLoading } = useGetAllParcelQuery({
+    page: currentPage,
+    limit,
+  });
   const parcel = data?.data;
   console.log(parcel);
 
@@ -72,12 +75,9 @@ const MyParcel = () => {
                 <TableCell>{singleParcel.pickupAddress}</TableCell>
                 <TableCell>{singleParcel.status}</TableCell>
                 <TableCell className="flex gap-2">
-                  <ParcelDeleteModal
+                  <EditParcelStatusModal
                     singleParcel={singleParcel}
-                  ></ParcelDeleteModal>{" "}
-                  <EditParcelModal
-                    singleParcel={singleParcel}
-                  ></EditParcelModal>
+                  ></EditParcelStatusModal>
                 </TableCell>
               </TableRow>
             ))}
@@ -99,4 +99,4 @@ const MyParcel = () => {
   );
 };
 
-export default MyParcel;
+export default AllParcels;

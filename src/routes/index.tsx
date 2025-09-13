@@ -10,6 +10,7 @@ import { withAuth } from "@/utils/withAuth";
 import { createBrowserRouter, Navigate } from "react-router";
 import { adminSidebarItems } from "./adminSidebarItems";
 import { generateRoutes } from "@/utils/generateRoutes";
+import { senderSidebarItems } from "./senderaSideBar";
 // import { userSidebarItems } from "./userSidebarItems";
 
 export const router = createBrowserRouter([
@@ -28,13 +29,39 @@ export const router = createBrowserRouter([
   },
 //
  {
-    Component: withAuth(DashboardLayout, role.user as TRole),
+    Component: withAuth(DashboardLayout, role.ADMIN as TRole),
     path: "/admin",
     children: [
       { index: true, element: <Navigate to="/admin/analytics" /> },
       ...generateRoutes(adminSidebarItems),
     ],
   },
+
+  {
+    Component: withAuth(DashboardLayout, role.SENDER as TRole),
+    path: "/sender",
+    children: [
+      { index: true, element: <Navigate to="/sender/my-profile"></Navigate> },
+
+      
+      ...generateRoutes(senderSidebarItems),
+    ],
+  },
+  // {
+  //   Component: withAuth(DashboardLayout, role.RECEIVER as TRole),
+  //   path: "/receiver",
+  //   children: [
+  //     { index: true, element: <Navigate to="/receiver/my-profile"></Navigate> },
+
+    
+  //     ...generateRoutes(receiverSidebarItems),
+  //   ],
+  // },
+
+
+//
+
+
   // {
   //   Component: withAuth(DashboardLayout, role.user as TRole),
   //   path: "/user",

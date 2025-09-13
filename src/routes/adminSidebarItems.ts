@@ -1,40 +1,34 @@
-import AddTour from "@/pages/Admin/AddTour";
-import AddTourType from "@/pages/Admin/AddTourType";
+import AllParcel from "@/pages/admin/AllParcels";
+import AllUser from "@/pages/admin/AllUser";
+import Analytics from "@/pages/admin/Analytics";
+import Profile from "@/pages/Profile";
+import {  IconDashboard, IconFolder, IconListDetails,} from "@tabler/icons-react";
+import { User } from "lucide-react";
 
-import type { ISidebarItem } from "@/types";
-import { lazy } from "react";
-
-const Analytics = lazy(() => import("@/pages/Admin/Analytics"));
-
-export const adminSidebarItems: ISidebarItem[] = [
+export const adminSidebarItems = [
   {
-    title: "Dashboard",
-    items: [
-      {
-        title: "Analytics",
-        url: "/admin/analytics",
-        component: Analytics
-      },
-    ],
+    title: "Analytics",
+    url: "/admin/analytics",
+    component: Analytics,
+    icon: IconDashboard,
   },
   {
-    title: "Tour Management",
-    items: [
-      {
-        title: "Add Tour Type",
-        url: "/admin/add-tour-type",
-        component: AddTourType,
-      },
-      {
-        title: "Add Tour",
-        url: "/admin/add-tour",
-        component: AddTour,
-      },
-      {
-        title: "Habi Jabi",
-        url: "/admin/habijabi",
-        component: AddTour,
-      },
-    ],
+    title: "Profile",
+    url: "/admin/my-profile",
+    component: Profile,
+    icon: User,
+  },
+
+  {
+    title: "All User",
+    url: "/admin/all-user",
+    icon: IconListDetails,
+    component: AllUser,
+  },
+  {
+    title: "All Parcel",
+    url: "/admin/all-parcel",
+    icon: IconFolder,
+    component: AllParcel,
   },
 ];
