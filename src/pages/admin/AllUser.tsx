@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Loader from "@/components/modules/shared/Loading";
-import CommonPagination from "@/components/pagignation";
+import CommonPagination from "@/components/pagination";
 import { Button } from "@/components/ui/button";
 import {
   Table,

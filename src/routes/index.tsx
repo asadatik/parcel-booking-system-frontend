@@ -8,9 +8,10 @@ import Verify from "@/pages/Verify";
 import type { TRole } from "@/types";
 import { withAuth } from "@/utils/withAuth";
 import { createBrowserRouter, Navigate } from "react-router";
-import { adminSidebarItems } from "./adminSidebarItems";
+
 import { generateRoutes } from "@/utils/generateRoutes";
 import { senderSidebarItems } from "./senderaSideBar";
+import { adminSidebarItems } from "./adminSidebarItems";
 // import { userSidebarItems } from "./userSidebarItems";
 
 export const router = createBrowserRouter([

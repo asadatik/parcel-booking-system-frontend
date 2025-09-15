@@ -2,7 +2,7 @@
 import { EditParcelModal } from "@/components/modules/modal/EditParcelModal";
 import { ParcelDeleteModal } from "@/components/modules/modal/ParcelDeleteModal";
 import Loader from "@/components/modules/shared/Loading";
-import CommonPagination from "@/components/pagignation";
+import CommonPagination from "@/components/pagination";
 import {
   Table,
   TableBody,

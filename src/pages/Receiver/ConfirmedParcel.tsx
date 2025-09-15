@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { EditParcelStatusModal } from "@/components/modules/modal/EditParcelStatusModal";
 import Loader from "@/components/modules/shared/Loading";
 import CommonPagination from "@/components/pagination";
 import {
@@ -12,10 +11,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useGetAllParcelQuery } from "@/redux/features/parcel/parcel.api";
+import { useGetMyParcelQuery } from "@/redux/features/parcel/parcel.api";
 import { useEffect, useState } from "react";
 
-const AllParcels = () => {
+const ConfirmedParcel = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [limit] = useState(5);
 
@@ -25,7 +24,7 @@ const AllParcels = () => {
       setCurrentPage(pageFromHash);
     };
 
-   
+    // প্রথমবার call করা
     handleHashChange();
 
     window.addEventListener("hashchange", handleHashChange);
@@ -35,9 +34,10 @@ const AllParcels = () => {
     };
   }, []);
 
-  const { data, isLoading } = useGetAllParcelQuery({
+  const { data, isLoading } = useGetMyParcelQuery({
     page: currentPage,
     limit,
+    status: "Delivered",
   });
   const parcel = data?.data;
   console.log(parcel);
@@ -60,7 +60,6 @@ const AllParcels = () => {
               <TableHead className="">Delivery Address</TableHead>
               <TableHead className="">Pickup Address</TableHead>
               <TableHead className="">Status</TableHead>
-              <TableHead className="">Action</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -74,11 +73,6 @@ const AllParcels = () => {
                 <TableCell>{singleParcel.deliveryAddress}</TableCell>
                 <TableCell>{singleParcel.pickupAddress}</TableCell>
                 <TableCell>{singleParcel.status}</TableCell>
-                <TableCell className="flex gap-2">
-                  <EditParcelStatusModal
-                    singleParcel={singleParcel}
-                  ></EditParcelStatusModal>
-                </TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -99,4 +93,4 @@ const AllParcels = () => {
   );
 };
 
-export default AllParcels;
+export default ConfirmedParcel;
