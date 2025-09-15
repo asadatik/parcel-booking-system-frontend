@@ -37,13 +37,7 @@ export const userApi = baseApi.injectEndpoints({
       }),
       providesTags: ["USERS"],
     }),
-    // getAdminStats: builder.query({
-    //   query: () => ({
-    //     url: "/stats/user",
-    //     method: "GET",
-    //   }),
-    //   providesTags: ["ADMIN_STATS"],
-    // }),
+  
   }),
 });
 
@@ -52,5 +46,5 @@ export const {
   usePasswordUpdateMutation,
   useGetAllReceiverQuery,
   useGetAllUserQuery,
-  // useGetAdminStatsQuery,
+ 
 } = userApi;

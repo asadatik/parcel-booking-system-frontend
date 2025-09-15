@@ -29,6 +29,7 @@ import Loader from "../modules/shared/Loading";
 import LogoWithoutName from "../modules/shared/LogoWithoutName";
 import ProfileButton from "../modules/shared/ProfileButton";
 import { ModeToggle } from "./ModeToggler";
+import { useEffect } from "react";
 
 interface MenuItem {
   title: string;
@@ -60,8 +61,18 @@ const menuItems = [
 ];
 const Navbar = () => {
   const { data: user, isLoading } = useUserInfoQuery(undefined);
+ 
   const [logout] = useLogoutMutation(undefined);
   const dispatch = useAppDispatch();
+
+
+useEffect(() => {
+  if (user?.data) {
+    console.log("user data from navbar", user.data);
+  }
+}, [user]);
+
+
 
   const handleLogout = async () => {
     try {
@@ -77,7 +88,7 @@ const Navbar = () => {
   if (isLoading) {
     return <Loader></Loader>;
   }
-  console.log("user data from navbar", user?.data);
+  
   return (
     <section className="py-4">
       <div className="container">

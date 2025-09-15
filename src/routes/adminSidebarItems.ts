@@ -1,19 +1,14 @@
 import AllParcel from "@/pages/admin/AllParcels";
 import AllUser from "@/pages/admin/AllUser";
-import Analytics from "@/pages/admin/Analytics";
+
 import Profile from "@/pages/Profile";
-import {  IconDashboard, IconFolder, IconListDetails,} from "@tabler/icons-react";
+import {   IconFolder, IconListDetails,} from "@tabler/icons-react";
 import { User } from "lucide-react";
 export const adminSidebarItems = [
   {
     title: "Admin",
     items: [
-      {
-        title: "Analytics",
-        url: "/admin/analytics",
-        component: Analytics,
-        icon: IconDashboard,
-      },
+    
       {
         title: "Profile",
         url: "/admin/my-profile",
