@@ -17,7 +17,7 @@ export const adminSidebarItems = [
       },
       {
         title: "All User",
-        url: "/admin/all-user",
+        url: "/admin/all-users",
         component: AllUser,
         icon: IconListDetails,
       },

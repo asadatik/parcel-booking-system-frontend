@@ -29,7 +29,6 @@ const AllUser = () => {
       setCurrentPage(pageFromHash);
     };
 
-    // প্রথমবার call করা
     handleHashChange();
 
     window.addEventListener("hashchange", handleHashChange);
@@ -40,6 +39,10 @@ const AllUser = () => {
   }, []);
 
   const { data, isLoading } = useGetAllUserQuery({ page: currentPage, limit });
+
+
+
+
   const [profileUpdate] = useProfileUpdateMutation();
 
   const handleUpdateStatus = async (id: string, data: boolean) => {
@@ -58,12 +61,17 @@ const AllUser = () => {
     }
   };
 
-  const users = data?.data?.data;
-  console.log("users ", users);
 
+
+  const users = data?.data;
+
+  console.log("users from all user pages ", users);
   if (isLoading) {
     return <Loader></Loader>;
   }
+
+
+
 
   return (
     <section className=" ">
@@ -85,10 +93,10 @@ const AllUser = () => {
               <TableRow key={user?._id}>
                 <TableCell>
                   <img
-                    className="rounded"
+                    className="rounded  w-12 h-12 object-cover" 
                     src={
                       user?.picture ||
-                      "https://img.freepik.com/premium-vector/profile-interface-icon-vector-art_1015832-3774.jpg"
+                      "https://i.ibb.co.com/zQDLxpK/pexels-olly-842811.jpg"
                     }
                     alt="Profile"
                   />
