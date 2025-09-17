@@ -78,7 +78,7 @@ const Navbar = () => {
   }
 
   return (
-    <section className="    py-4 bg-gradient-to-r from-emerald-50 via-white to-orange-50 dark:from-emerald-950/20 dark:via-background dark:to-orange-950/20 backdrop-blur-sm border-b border-emerald-100 dark:border-emerald-800/30">
+    <section className="  fixed top-0 left-0 right-0 z-50  py-4 bg-gradient-to-r from-emerald-100 via-cyan-100 to-orange-50 dark:from-emerald-950 dark:via-background dark:to-orange-950/50 backdrop-blur-sm border-b border-emerald-100 dark:border-emerald-800/30">
       <div className="container">
         {/* Desktop Menu */}
         <nav className="hidden    justify-between lg:flex items-center">

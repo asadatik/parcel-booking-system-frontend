@@ -56,7 +56,7 @@ const Testimonial = () => {
     return (
         <div>
               {/* Testimonials Section */}
-      <section className="py-10 bg-white">
+      <section className="py-10">
         <div className="container mx-auto px-4">
           <motion.div
             className="text-center mb-16"
