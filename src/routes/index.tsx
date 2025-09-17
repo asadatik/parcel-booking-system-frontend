@@ -8,7 +8,7 @@ import Verify from "@/pages/Verify";
 import type { TRole } from "@/types";
 import { withAuth } from "@/utils/withAuth";
 import { createBrowserRouter, Navigate } from "react-router";
-
+import Home from "@/pages/public/Home";
 import { generateRoutes } from "@/utils/generateRoutes";
 import { senderSidebarItems } from "./senderaSideBar";
 import { adminSidebarItems } from "./adminSidebarItems";
@@ -19,6 +19,10 @@ export const router = createBrowserRouter([
     Component: App,
     path: "/",
     children: [
+            {
+        index: true,
+        Component: Home   
+      },
       {
         Component: About,
         path: "about",

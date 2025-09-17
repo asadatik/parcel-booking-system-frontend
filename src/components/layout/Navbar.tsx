@@ -37,12 +37,7 @@ interface MenuItem {
 }
 
 const menuItems = [
-  { title: "Home", url: "/", role: "PUBLIC" }, {
-
-    title: "Features",
-    url: "/features",
-    role: "PUBLIC",
-  },
+  { title: "Home", url: "/", role: "PUBLIC" }, 
   {
     title: "About",
     url: "/about",
@@ -53,11 +48,7 @@ const menuItems = [
     url: "/contact",
     role: "PUBLIC",
   },
-  {
-    title: "FAQ",
-    url: "/faq",
-    role: "PUBLIC",
-  },
+
 ];
 
 const Navbar = () => {

@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+
 import {
   Form,
   FormControl,
@@ -98,26 +98,14 @@ export function LoginForm({
                 </FormItem>
               )}
             />
-
-            <Button type="submit" className="w-full">
-              Login
-            </Button>
+              <button type="submit" className="w-full">
+                <div className="bg-gradient-to-r from-emerald-600 to-orange-400 hover:from-emerald-700 hover:to-orange-500  text-xl text-white font-semibold py-2 px-4 rounded-lg shadow-lg transition-all duration-300 hover:shadow-emerald-200 dark:hover:shadow-emerald-900/50">
+                  Login
+                </div>
+              </button>
+         
           </form>
         </Form>
-
-        <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
-          <span className="relative z-10 bg-background px-2 text-muted-foreground">
-            Or continue with
-          </span>
-        </div>
-
-        <Button
-          type="button"
-          variant="outline"
-          className="w-full cursor-pointer"
-        >
-          Login with Google
-        </Button>
       </div>
       <div className="text-center text-sm">
         Don&apos;t have an account?{" "}
