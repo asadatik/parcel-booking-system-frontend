@@ -12,6 +12,7 @@ import Home from "@/pages/public/Home";
 import { generateRoutes } from "@/utils/generateRoutes";
 import { senderSidebarItems } from "./senderaSideBar";
 import { adminSidebarItems } from "./adminSidebarItems";
+import Contact from "@/pages/public/Contact";
 // import { userSidebarItems } from "./userSidebarItems";
 
 export const router = createBrowserRouter([
@@ -23,6 +24,11 @@ export const router = createBrowserRouter([
         index: true,
         Component: Home   
       },
+      {
+        Component: Contact,
+        path: "contact",
+      },
+
       {
         Component: About,
         path: "about",

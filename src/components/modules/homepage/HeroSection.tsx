@@ -29,7 +29,7 @@ const HeroSection = () => {
   }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-emerald-50/30"  >
+        <div className=" bg-gradient-to-br from-slate-50 via-white to-emerald-50/30"  >
                <section
         className="relative overflow-hidden min-h-[80vh] flex items-center"
         style={{ backgroundColor: "#047857" }}

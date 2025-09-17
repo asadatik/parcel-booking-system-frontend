@@ -37,7 +37,7 @@ interface MenuItem {
 }
 
 const menuItems = [
-  { title: "Home", url: "/", role: "PUBLIC" }, 
+  { title: "Home", url: "/", role: "PUBLIC" },
   {
     title: "About",
     url: "/about",
@@ -83,6 +83,7 @@ const Navbar = () => {
         {/* Desktop Menu */}
         <nav className="hidden    justify-between lg:flex items-center">
           <div className="flex mx-4  items-center gap-8">
+            <NavLink to="/">
             <div className="flex items-center gap-3 group">
               <div className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-emerald-200 dark:group-hover:shadow-emerald-900/50 transition-all duration-300 group-hover:scale-105">
                 <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -94,11 +95,11 @@ const Navbar = () => {
                   />
                 </svg>
               </div>
-              <span className="text-xl font-bold bg-gradient-to-r from-emerald-600 to-orange-500  bg-clip-text text-transparent">
+              <span className="text-2xl font-bold bg-gradient-to-r from-emerald-600 to-orange-500  bg-clip-text text-transparent">
                 ParcelPro
               </span>
             </div>
-
+            </NavLink>
             <div className="flex items-center">
               <NavigationMenu>
                 <NavigationMenuList className="gap-2">
@@ -177,22 +178,24 @@ const Navbar = () => {
         {/* Mobile */}
         <div className="block lg:hidden">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2 group">
-              <div className="w-8 h-8 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-lg flex items-center justify-center shadow-md group-hover:shadow-emerald-200 dark:group-hover:shadow-emerald-900/50 transition-all duration-300">
-                <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
-                  />
-                </svg>
-              </div>
-              <span className="text-lg font-bold bg-gradient-to-r from-emerald-600 to-emerald-700 dark:from-emerald-400 dark:to-emerald-300 bg-clip-text text-transparent">
-                ParcelPro
-              </span>
-            </div>
 
+            <NavLink to="/">
+              <div className="    flex items-center gap-2 group">
+                <div className="w-8 h-8 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-lg flex items-center justify-center shadow-md group-hover:shadow-emerald-200 dark:group-hover:shadow-emerald-900/50 transition-all duration-300">
+                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
+                    />
+                  </svg>
+                </div>
+                <span className="text-xl font-bold bg-gradient-to-r from-emerald-600 to-orange-500   dark:from-emerald-400 dark:to-emerald-300 bg-clip-text text-transparent">
+                  ParcelPro
+                </span>
+              </div>
+            </NavLink>
             <Sheet>
               <div className="flex gap-3">
                 <div className="p-1 rounded-lg bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border border-emerald-100 dark:border-emerald-800/30">
@@ -240,10 +243,10 @@ const Navbar = () => {
                       <>
                         <NavLink
                           to={`${user?.data?.role === "SENDER"
-                              ? "/sender"
-                              : user?.data?.role === "RECEIVER"
-                                ? "/receiver"
-                                : "/admin"
+                            ? "/sender"
+                            : user?.data?.role === "RECEIVER"
+                              ? "/receiver"
+                              : "/admin"
                             }`}
                         >
                           <Button
