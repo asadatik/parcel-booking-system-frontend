@@ -1,74 +1,65 @@
-import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious,} from "@/components/ui/pagination";
-import { usePagination } from "@/hooks/use-pagination";
+// src/components/Pagination.tsx
+import React from "react";
 
-
-type PaginationProps = {
+interface PaginationProps {
   currentPage: number;
-  totalPages: number;
-  paginationItemsToDisplay?: number;
-};
+  totalPage: number;
+  onPageChange: (page: number) => void;
+}
 
-export default function CommonPagination({
+const Pagination: React.FC<PaginationProps> = ({
   currentPage,
-  totalPages,
-  paginationItemsToDisplay = 5,
-}: PaginationProps) {
-  const { pages, showLeftEllipsis, showRightEllipsis } = usePagination({
-    currentPage,
-    totalPages,
-    paginationItemsToDisplay,
-  });
+  totalPage,
+  onPageChange,
+}) => {
+  if (totalPage <= 1) return null;
+
+  const pages = Array.from({ length: totalPage }, (_, i) => i + 1);
 
   return (
-    <Pagination>
-      <PaginationContent>
-     
-        <PaginationItem>
-          <PaginationPrevious
-            className="aria-disabled:pointer-events-none aria-disabled:opacity-50"
-            href={currentPage === 1 ? undefined : `#/page/${currentPage - 1}`}
-            aria-disabled={currentPage === 1 ? true : undefined}
-            role={currentPage === 1 ? "link" : undefined}
-          />
-        </PaginationItem>
+    <div className="flex justify-center items-center gap-2 mt-6">
+      {/* Previous Button */}
+      <button
+        disabled={currentPage === 1}
+        onClick={() => onPageChange(currentPage - 1)}
+        className={`px-3 py-1 rounded-md text-sm ${
+          currentPage === 1
+            ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+            : "bg-emerald-500 text-white hover:bg-emerald-600"
+        }`}
+      >
+        Prev
+      </button>
 
-        {showLeftEllipsis && (
-          <PaginationItem>
-            <PaginationEllipsis />
-          </PaginationItem>
-        )}
+      {/* Page Numbers */}
+      {pages.map((page) => (
+        <button
+          key={page}
+          onClick={() => onPageChange(page)}
+          className={`px-3 py-1 rounded-md text-sm ${
+            currentPage === page
+              ? "bg-orange-500 text-white font-bold"
+              : "bg-gray-200 text-gray-800 hover:bg-gray-300"
+          }`}
+        >
+          {page}
+        </button>
+      ))}
 
-   
-        {pages.map((page: number) => (
-          <PaginationItem key={page}>
-            <PaginationLink
-              href={`#/page/${page}`}
-              isActive={page === currentPage}
-            >
-              {page}
-            </PaginationLink>
-          </PaginationItem>
-        ))}
-
-        {showRightEllipsis && (
-          <PaginationItem>
-            <PaginationEllipsis />
-          </PaginationItem>
-        )}
-
-        <PaginationItem>
-          <PaginationNext
-            className="aria-disabled:pointer-events-none aria-disabled:opacity-50"
-            href={
-              currentPage === totalPages
-                ? undefined
-                : `#/page/${currentPage + 1}`
-            }
-            aria-disabled={currentPage === totalPages ? true : undefined}
-            role={currentPage === totalPages ? "link" : undefined}
-          />
-        </PaginationItem>
-      </PaginationContent>
-    </Pagination>
+      {/* Next Button */}
+      <button
+        disabled={currentPage === totalPage}
+        onClick={() => onPageChange(currentPage + 1)}
+        className={`px-3 py-1 rounded-md text-sm ${
+          currentPage === totalPage
+            ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+            : "bg-emerald-500 text-white hover:bg-emerald-600"
+        }`}
+      >
+        Next
+      </button>
+    </div>
   );
-}
+};
+
+export default Pagination;

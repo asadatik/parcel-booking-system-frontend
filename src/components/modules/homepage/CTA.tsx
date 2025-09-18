@@ -22,7 +22,7 @@ const CTA = () => {
     return (
         <div>
               {/* CTA Section */}
-      <section className="py-24 relative overflow-hidden" style={{ backgroundColor: "#047857" }}>
+      <section className="py-24 relative overflow-hidden" >
         <div className="absolute inset-0 bg-gradient-to-br from-emerald-600 via-emerald-700 to-teal-800"></div>
         <div className="absolute inset-0 bg-[url('/delivery-truck-pattern.jpg')] opacity-10 bg-cover bg-center"></div>
         <div className="relative z-20 container mx-auto px-4 text-center text-white">

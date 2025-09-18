@@ -143,7 +143,7 @@ const WhyWe = () => {
         }
       `}</style>
 
-                    <h2 className="text-5xl font-bold text-center mb-16 fade-in-up">Why Choose Us ?</h2>
+                    <h2 className="lg:text-5xl  text-3xl  text-gray-700  font-bold text-center mb-16 fade-in-up">Why Choose Us ?</h2>
                     <div className="glass rounded-3xl p-8">
                         <div className="grid lg:grid-cols-2 gap-12">
                             {/* Service Navigation */}

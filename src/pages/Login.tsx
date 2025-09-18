@@ -1,4 +1,4 @@
-import TravelLogin from "@/assets/images/travel-login.jpg";
+
 import { Link } from "react-router";
 
 import { LoginForm } from "@/components/modules/Authentication/LoginForm";
@@ -34,7 +34,7 @@ export default function Login() {
       </div>
       <div className="relative hidden bg-muted lg:block">
         <img
-          src={TravelLogin}
+          src="https://i.ibb.co.com/6J4cXZTc/pexels-mizunokozuki-13443801.jpg"
           alt="Image"
           className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.8]"
         />

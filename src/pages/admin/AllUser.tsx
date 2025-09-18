@@ -12,25 +12,20 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import {
-  useGetAllUserQuery,
-  useProfileUpdateMutation,
-} from "@/redux/features/user/user.api";
+import { useGetAllUserQuery, useProfileUpdateMutation } from "@/redux/features/user/user.api";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 const AllUser = () => {
-  const [currentPage, setCurrentPage] = useState(0);
-  const [limit] = useState(5);
+  const [currentPage, setCurrentPage] = useState(1); // start at 1
 
   useEffect(() => {
     const handleHashChange = () => {
-      const pageFromHash = Number(window.location.hash.split("/")[2]) || 0;
+      const pageFromHash = Number(window.location.hash.split("/")[2]) || 1;
       setCurrentPage(pageFromHash);
     };
 
     handleHashChange();
-
     window.addEventListener("hashchange", handleHashChange);
 
     return () => {
@@ -38,85 +33,76 @@ const AllUser = () => {
     };
   }, []);
 
-  const { data, isLoading } = useGetAllUserQuery({ page: currentPage, limit });
-
-
-
+  const { data, isLoading } = useGetAllUserQuery({ page: currentPage, limit: 10 });
 
   const [profileUpdate] = useProfileUpdateMutation();
 
-  const handleUpdateStatus = async (id: string, data: boolean) => {
-    const status = { isBlocked: data };
-    const toastId = toast.loading("Profile update is loading");
+  const handleUpdateStatus = async (id: string, isBlocked: boolean) => {
+    const toastId = toast.loading("Updating profile...");
     const formData = new FormData();
-    formData.append("data", JSON.stringify(status));
+    formData.append("data", JSON.stringify({ isBlocked }));
 
     try {
-      const res = await profileUpdate({ id, formData });
-      console.log(res);
-      toast.success("Profile updated ", { id: toastId });
+      await profileUpdate({ id, formData });
+      toast.success("Profile updated", { id: toastId });
     } catch (error) {
-      toast.error("Profile upload failed", { id: toastId });
       console.log(error);
+      toast.error("Profile update failed", { id: toastId });
     }
   };
 
+  const users = data?.data || [];
+  const meta = data?.meta || { page: 1, totalPage: 1, total: 0 };
 
-
-  const users = data?.data;
-
-  console.log("users from all user pages ", users);
-  if (isLoading) {
-    return <Loader></Loader>;
-  }
-
-
-
+  if (isLoading) return <Loader />;
 
   return (
-    <section className=" ">
+    <section className="">
       <div className="">
         <Table className="overflow-hidden">
           <TableCaption>A list of all users.</TableCaption>
           <TableHeader>
             <TableRow>
-              <TableHead className="">Profile</TableHead>
+              <TableHead>Profile</TableHead>
               <TableHead>Name</TableHead>
               <TableHead>Role</TableHead>
-              <TableHead className="">Email</TableHead>
-              <TableHead className="">Block</TableHead>
-              <TableHead className="">Action</TableHead>
+              <TableHead>Email</TableHead>
+              <TableHead>Status</TableHead>
+              <TableHead>Action</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {users?.map((user: any) => (
-              <TableRow key={user?._id}>
+            {users.map((user: any) => (
+              <TableRow key={user._id}>
                 <TableCell>
                   <img
-                    className="rounded  w-12 h-12 object-cover" 
+                    className="rounded w-12 h-12 object-cover"
                     src={
-                      user?.picture ||
-                      "https://i.ibb.co.com/zQDLxpK/pexels-olly-842811.jpg"
+                      user.picture ||
+                      "https://i.ibb.co/zQDLxpK/pexels-olly-842811.jpg"
                     }
                     alt="Profile"
                   />
                 </TableCell>
-                <TableCell>{user?.name}</TableCell>
-                <TableCell>{user?.role}</TableCell>
-                <TableCell>{user?.email}</TableCell>
-                <TableCell>{user?.isBlocked ? "Blocked" : "Unblock"}</TableCell>
-                <TableCell className="flex items-center  gap-2">
+                <TableCell>{user.name}</TableCell>
+                <TableCell>{user.role}</TableCell>
+                <TableCell>{user.email}</TableCell>
+                <TableCell>{user.isBlocked ? "Blocked" : "Unblocked"}</TableCell>
+                <TableCell className="flex items-center gap-2">
                   <Button
-                    onClick={() => handleUpdateStatus(user?._id, true)}
-                    variant={"secondary"}
-                    className="cursor-pointer"
-                  >
+                    onClick={() => handleUpdateStatus(user._id, true)}
+                    variant="secondary"
+                    className="cursor-pointer  bg-gradient-to-r from-emerald-500 to-orange-400 hover:from-emerald-700 hover:to-orange-500 text-white  rounded-2xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl shadow-lg  "
+                 
+                 
+                 >
                     Block
                   </Button>
                   <Button
-                    onClick={() => handleUpdateStatus(user?._id, false)}
-                    variant={"secondary"}
-                    className="cursor-pointer"
+                    onClick={() => handleUpdateStatus(user._id, false)}
+                    variant="secondary"
+                    className="cursor-pointer   bg-gradient-to-r from-emerald-400 to-teal-500 hover:from-emerald-600 hover:to-teal-700 text-white  rounded-2xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl shadow-lg  "
+
                   >
                     Unblock
                   </Button>
@@ -126,12 +112,15 @@ const AllUser = () => {
           </TableBody>
           <TableFooter>
             <TableRow>
-              <TableCell colSpan={10}>
+              <TableCell colSpan={6}>
                 <CommonPagination
-                  currentPage={data?.data?.meta?.page}
-                  totalPages={data?.data?.meta?.totalPage}
-                  paginationItemsToDisplay={data?.data?.meta?.total}
-                ></CommonPagination>
+                  currentPage={meta.page}
+                  totalPage={meta.totalPage}
+                  onPageChange={(page) => {
+                    setCurrentPage(page);
+                    window.location.hash = `/admin/all-user/${page}`;}
+                  }
+                />
               </TableCell>
             </TableRow>
           </TableFooter>
@@ -142,3 +131,6 @@ const AllUser = () => {
 };
 
 export default AllUser;
+
+
+

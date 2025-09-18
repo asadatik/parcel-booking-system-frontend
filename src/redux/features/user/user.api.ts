@@ -29,14 +29,17 @@ export const userApi = baseApi.injectEndpoints({
         method: "GET",
       }),
     }),
+
+    
     //
-    getAllUser: builder.query({
-      query: () => ({
-        url: "/user/all-users",
-        method: "GET",
-      }),
-      providesTags: ["USERS"],
-    }),
+  getAllUser: builder.query({
+  query: ({ page = 1, limit = 10 }) => ({
+    url: `/user/all-users?page=${page}&limit=${limit}`,
+    method: "GET",
+  }),
+  providesTags: ["USERS"],
+}),
+
   
   }),
 });
