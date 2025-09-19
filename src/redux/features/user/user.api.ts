@@ -3,14 +3,15 @@ import { baseApi } from "@/redux/baseApi";
 export const userApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     //
-    profileUpdate: builder.mutation({
-      query: ({ id, formData }) => ({
-        url: `/user/${id}`,
-        method: "PATCH",
-        data: formData,
-      }),
-      invalidatesTags: ["USER", "USERS"],
-    }),
+profileUpdate: builder.mutation({
+  query: ({ id, data }) => ({
+    url: `/user/${id}`,
+    method: "PATCH",
+    data, // সরাসরি object পাঠানো হচ্ছে
+  }),
+  invalidatesTags: ["USER", "USERS"],
+}),
+
 
     //
     passwordUpdate: builder.mutation({

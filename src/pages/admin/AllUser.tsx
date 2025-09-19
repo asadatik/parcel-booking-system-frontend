@@ -13,8 +13,10 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useGetAllUserQuery, useProfileUpdateMutation } from "@/redux/features/user/user.api";
+
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
+type UserStatus = "ACTIVE" | "INACTIVE" | "BLOCKED" | "DELETED";
 
 const AllUser = () => {
   const [currentPage, setCurrentPage] = useState(1); // start at 1
@@ -37,19 +39,18 @@ const AllUser = () => {
 
   const [profileUpdate] = useProfileUpdateMutation();
 
-  const handleUpdateStatus = async (id: string, isBlocked: boolean) => {
+  const handleUpdateStatus = async (id: string, status: UserStatus) => {
     const toastId = toast.loading("Updating profile...");
-    const formData = new FormData();
-    formData.append("data", JSON.stringify({ isBlocked }));
 
     try {
-      await profileUpdate({ id, formData });
+      await profileUpdate({ id, data: { isActive: status } }).unwrap();
       toast.success("Profile updated", { id: toastId });
     } catch (error) {
       console.log(error);
       toast.error("Profile update failed", { id: toastId });
     }
   };
+
 
   const users = data?.data || [];
   const meta = data?.meta || { page: 1, totalPage: 1, total: 0 };
@@ -87,26 +88,36 @@ const AllUser = () => {
                 <TableCell>{user.name}</TableCell>
                 <TableCell>{user.role}</TableCell>
                 <TableCell>{user.email}</TableCell>
-                <TableCell>{user.isBlocked ? "Blocked" : "Unblocked"}</TableCell>
+                <TableCell>
+                  {user.isActive === "ACTIVE" && "Active"}
+                  {user.isActive === "BLOCKED" && "Blocked"}
+                  {user.isActive === "INACTIVE" && "Inactive"}
+                  {user.isActive === "DELETED" && "Deleted"}
+                </TableCell>
                 <TableCell className="flex items-center gap-2">
                   <Button
-                    onClick={() => handleUpdateStatus(user._id, true)}
+                    onClick={() => handleUpdateStatus(user._id, "BLOCKED")}
                     variant="secondary"
-                    className="cursor-pointer  bg-gradient-to-r from-emerald-500 to-orange-400 hover:from-emerald-700 hover:to-orange-500 text-white  rounded-2xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl shadow-lg  "
-                 
-                 
-                 >
+                    disabled={user.isActive === "BLOCKED"} // ❌ Blocked হলে disable
+                    className={`cursor-pointer bg-gradient-to-r from-emerald-500 to-orange-400 
+      hover:from-emerald-700 hover:to-orange-500 text-white rounded-2xl transition-all duration-300 
+      transform hover:scale-105 hover:shadow-2xl shadow-lg ${user.isActive === "BLOCKED" ? "opacity-50 cursor-not-allowed hover:scale-100 hover:shadow-none" : ""}`}
+                  >
                     Block
                   </Button>
-                  <Button
-                    onClick={() => handleUpdateStatus(user._id, false)}
-                    variant="secondary"
-                    className="cursor-pointer   bg-gradient-to-r from-emerald-400 to-teal-500 hover:from-emerald-600 hover:to-teal-700 text-white  rounded-2xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl shadow-lg  "
 
+                  <Button
+                    onClick={() => handleUpdateStatus(user._id, "ACTIVE")}
+                    variant="secondary"
+                    disabled={user.isActive === "ACTIVE"} // ❌ Active হলে disable
+                    className={`cursor-pointer bg-gradient-to-r from-emerald-400 to-teal-500 
+      hover:from-emerald-600 hover:to-teal-700 text-white rounded-2xl transition-all duration-300 
+      transform hover:scale-105 hover:shadow-2xl shadow-lg ${user.isActive === "ACTIVE" ? "opacity-50 cursor-not-allowed hover:scale-100 hover:shadow-none" : ""}`}
                   >
                     Unblock
-                  </Button>
+                </Button>
                 </TableCell>
+
               </TableRow>
             ))}
           </TableBody>
@@ -118,7 +129,8 @@ const AllUser = () => {
                   totalPage={meta.totalPage}
                   onPageChange={(page) => {
                     setCurrentPage(page);
-                    window.location.hash = `/admin/all-user/${page}`;}
+                    window.location.hash = `/admin/all-user/${page}`;
+                  }
                   }
                 />
               </TableCell>

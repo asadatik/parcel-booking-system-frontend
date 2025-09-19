@@ -15,7 +15,7 @@ export const parcelAPi = baseApi.injectEndpoints({
     // update parcel details
     editParcel: builder.mutation({
       query: ({ parcelId, data }) => ({
-        url: `/parcel/${parcelId}`,
+        url: `/parcel/${parcelId}/status`,
         method: "PATCH",
         data: data,
       }),

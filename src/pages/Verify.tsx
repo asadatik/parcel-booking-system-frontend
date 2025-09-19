@@ -93,10 +93,10 @@ export default function Verify() {
     }
   };
 
-  // Redirect if no email found
-  useEffect(() => {
-    if (!email) navigate("/", { replace: true });
-  }, [email]);
+  // // Redirect if no email found
+  // useEffect(() => {
+  //   if (!email) navigate("/", { replace: true });
+  // }, [email]);
 
   // Timer countdown for resend OTP
   useEffect(() => {

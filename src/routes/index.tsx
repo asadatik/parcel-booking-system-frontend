@@ -92,7 +92,11 @@ export const router = createBrowserRouter([
     path: "/register",
   },
   {
+
+
     Component: Verify,
     path: "/verify",
+
+    
   },
 ]);
