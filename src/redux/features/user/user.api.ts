@@ -23,10 +23,12 @@ profileUpdate: builder.mutation({
       invalidatesTags: ["USER"],
     }),
 
-    //
+
+    // ALL RECEIVER
+
     getAllReceiver: builder.query({
       query: () => ({
-        url: "/user/all-receiver",
+        url: "/user/receivers",
         method: "GET",
       }),
     }),

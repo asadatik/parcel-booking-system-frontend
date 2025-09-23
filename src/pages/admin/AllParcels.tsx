@@ -98,6 +98,7 @@ const AllParcels = () => {
                 <TableCell>{singleParcel?.deliveryAddress}</TableCell>
                 <TableCell>
                   {singleParcel.statusLogs?.length > 0 ? (
+                    
                     <span
                       style={{
                         color: "black", // text color

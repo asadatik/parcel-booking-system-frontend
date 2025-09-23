@@ -37,6 +37,7 @@ const MyParcel = () => {
 
   const { data, isLoading } = useGetMyParcelQuery({ page: currentPage, limit });
   const parcel = data?.data;
+  const meta = data?.meta;
   console.log(parcel);
 
   if (isLoading) {
@@ -86,9 +87,9 @@ const MyParcel = () => {
             <TableRow>
               <TableCell colSpan={10}>
                 <CommonPagination
-                  currentPage={parcel?.meta?.page}
-                  totalPages={parcel?.meta?.totalPage}
-                  paginationItemsToDisplay={parcel?.meta?.total}
+                    currentPage={meta?.page}
+                  totalPage={meta?.totalPage}
+                  onPageChange={(page) => setCurrentPage(page)}
                 ></CommonPagination>
               </TableCell>
             </TableRow>

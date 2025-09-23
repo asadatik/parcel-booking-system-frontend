@@ -1,15 +1,36 @@
-import Bookings from "@/pages/User/Bookings";
-import type { ISidebarItem } from "@/types";
+import Profile from "@/pages/Profile";
+import CreateParcel from "@/pages/Sender/CreateParcel";
 
-export const senderSidebarItems: ISidebarItem[] = [
-  {
-    title: "History",
-    items: [
-      {
-        title: "Bookings",
-        url: "/user/bookings",
-        component: Bookings,
-      },
-    ],
+import MyParcel from "@/pages/Sender/MyParcel";
+import { IconListDetails } from "@tabler/icons-react";
+import { User } from "lucide-react";
+export const senderSidebarItems = [
+
+
+  { title: "Admin", items: [
+    {
+      title: "Profile",
+      url: "/sender/my-profile",
+      component: Profile,
+      icon: User,
+    },
+    {
+      title: "Create Parcel",
+      url: "/sender/create-parcel",
+      component: CreateParcel,
+      icon: IconListDetails,
+
+
+
   },
+  {
+    title: "My Parcel",
+    url: "/sender/my-parcel",
+      component: MyParcel,
+    icon: IconListDetails,
+    
+  },]
+
+}
+
 ];

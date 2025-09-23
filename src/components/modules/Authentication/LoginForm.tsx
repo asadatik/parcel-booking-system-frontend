@@ -18,6 +18,7 @@ import { Eye, EyeOff } from "lucide-react"; // icons
 
 
 
+
 export function LoginForm({
   className,
   ...props
@@ -40,12 +41,17 @@ export function LoginForm({
       console.log(res);
 
 
-    } catch (err) {
-      console.error(err);
+    } 
+    
+    catch (err) {
+      console.log(err.data.message);
+   toast.warning("something is going wrong");
    //
-      if (err.data.message === "Password does not match") {
+      if (err.data.message === "Invalid Password") {
         toast.error("Invalid credentials");
       }
+  
+           
 
       if (err.data.message === "User is not verified") {
         toast.error("Your account is not verified");
