@@ -7,7 +7,7 @@ import { Package, MapPin, User, Weight, FileText, Gift } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Form,
-  FormControl,
+  FormControl  ,
   FormField,
   FormItem,
   FormLabel,
@@ -68,22 +68,7 @@ const CreateParcel = () => {
   const allReceiver = receiver?.data?.data;
   console.log("receiver", allReceiver);
 
-  // const onSubmit = async (data: any) => {
-  //   data.sender = user?.data?._id;
 
-  //   console.log("Parcel form submitted:", data);
-  //   const toastId = toast.loading("Parcel creating...");
-
-  //   try {
-  //     const res = await createParcel(data).unwrap();
-  //     console.log(res);
-  //     toast.success("Parcel created", { id: toastId });
-  //   } catch (error) {
-  //     toast.error("Parcel creating failed", { id: toastId });
-
-  //     console.log(error);
-  //   }
-  // };
  const onSubmit = async (data: any) => {
     data.sender = user?.data?._id;
 
@@ -284,11 +269,11 @@ const CreateParcel = () => {
                         onValueChange={field.onChange}
                         defaultValue={field.value}
                       >
-                        <FormControl className="w-full">
+                        <FormControl   className="w-full text-black   ">
                           <SelectTrigger className="select-enhanced">
                             <SelectValue placeholder="Select parcel type" />
                           </SelectTrigger>
-                        </FormControl>
+                        </FormControl  >
                         <SelectContent className="border-2 border-emerald-200 rounded-xl">
                           <SelectItem value="Document" className="hover:bg-emerald-50 rounded-lg m-1">
                             <div className="flex items-center gap-2">
@@ -325,7 +310,7 @@ const CreateParcel = () => {
                         <Weight className="icon-container" />
                         Weight (kg)
                       </FormLabel>
-                      <FormControl>
+                      <FormControl className="text-black" >
                         <Input
                           type="number"
                           step="0.1"
@@ -334,7 +319,7 @@ const CreateParcel = () => {
                           {...field}
                           onChange={(e) => field.onChange(parseFloat(e.target.value))}
                         />
-                      </FormControl>
+                      </FormControl  >
                       <FormMessage className="error-message" />
                     </FormItem>
                   )}
@@ -351,13 +336,13 @@ const CreateParcel = () => {
                         <MapPin className="icon-container" />
                         Delivery Address
                       </FormLabel>
-                      <FormControl>
+                      <FormControl  className="text-black  " >
                         <Input 
                           placeholder="Enter delivery address" 
                           className="input-enhanced"
                           {...field} 
                         />
-                      </FormControl>
+                      </FormControl  >
                       <FormMessage className="error-message" />
                     </FormItem>
                   )}
@@ -373,16 +358,16 @@ const CreateParcel = () => {
                         <User className="icon-container" />
                         Receiver
                       </FormLabel>
-                      <FormControl>
+                      <FormControl className="text-black  " >
                         <Select
                           onValueChange={field.onChange}
-                          defaultValue={field.value}
+                     
                         >
-                          <FormControl className="w-full">
+                          <FormControl   className="w-full  text-black    ">
                             <SelectTrigger className="select-enhanced">
                               <SelectValue placeholder="Select receiver" />
                             </SelectTrigger>
-                          </FormControl>
+                          </FormControl  >
                           <SelectContent className="border-2 border-emerald-200 rounded-xl">
                             {allReceiver?.map((receiver: any) => (
                               <SelectItem 
@@ -392,13 +377,13 @@ const CreateParcel = () => {
                               >
                                 <div className="flex items-center gap-2">
                                   <User className="w-4 h-4 text-emerald-600" />
-                                  {receiver?.name}
+                                  {receiver?.email}
                                 </div>
                               </SelectItem>
                             ))}
                           </SelectContent>
                         </Select>
-                      </FormControl>
+                      </FormControl  >
                       <FormMessage className="error-message" />
                     </FormItem>
                   )}
@@ -414,7 +399,7 @@ const CreateParcel = () => {
                         <Gift className="icon-container" />
                         Coupon Code
                       </FormLabel>
-                      <FormControl>
+                      <FormControl   className="text-black" >
                         <div className="relative">
                           <Input 
                             placeholder="Enter coupon code (optional)" 
@@ -427,7 +412,7 @@ const CreateParcel = () => {
                             </div>
                           )}
                         </div>
-                      </FormControl>
+                      </FormControl  >
                       <FormMessage className="error-message" />
                     </FormItem>
                   )}
