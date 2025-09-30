@@ -7,7 +7,7 @@ import { Package, MapPin, User, Weight, FileText, Gift } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Form,
-  FormControl  ,
+  FormControl,
   FormField,
   FormItem,
   FormLabel,
@@ -32,15 +32,11 @@ const parcelSchema = z.object({
   weight: z.number().min(0.1, "Weight must be positive"),
 
   deliveryAddress: z.string().min(1, "Delivery address is required"),
-  receiver: z.object({
-    name: z.string().min(1, "Receiver name is required"),
-    phone: z.string().min(1, "Receiver phone is required"),
-    address: z.string().min(1, "Receiver address is required"),
+  // ✅ শুধু email string
+  receiver: z.string().email("Receiver email is required"),
 
-  }),
-
-    DeliveryDate: z.string().min(1, "Delivery date is required"),
- parcelFee: z.number().min(1, "Parcel fee is required"),
+  DeliveryDate: z.string().min(1, "Delivery date is required"),
+  parcelFee: z.number().min(1, "Parcel fee is required"),
   couponCode: z.string().optional(),
 });
 
@@ -56,9 +52,9 @@ const CreateParcel = () => {
       type: "",
       weight: 0,
       deliveryAddress: "",
-  
-     receiver: { name: "", phone: "", address: "" },
-           parcelFee: 0,
+
+      receiver: "",   // ✅ object not  string hbeee
+      parcelFee: 0,
       DeliveryDate: "",
 
       couponCode: "50",
@@ -69,7 +65,7 @@ const CreateParcel = () => {
   console.log("receiver", allReceiver);
 
 
- const onSubmit = async (data: any) => {
+  const onSubmit = async (data: any) => {
     data.sender = user?.data?._id;
 
     // Ensure proper date format
@@ -234,8 +230,8 @@ const CreateParcel = () => {
         {/* Floating Background Elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-r from-emerald-300 to-teal-300 rounded-full opacity-20 float"></div>
-          <div className="absolute top-60 right-20 w-24 h-24 bg-gradient-to-r from-orange-300 to-pink-300 rounded-full opacity-20 float" style={{animationDelay: '2s'}}></div>
-          <div className="absolute bottom-32 left-32 w-40 h-40 bg-gradient-to-r from-emerald-200 to-cyan-200 rounded-full opacity-15 float" style={{animationDelay: '4s'}}></div>
+          <div className="absolute top-60 right-20 w-24 h-24 bg-gradient-to-r from-orange-300 to-pink-300 rounded-full opacity-20 float" style={{ animationDelay: '2s' }}></div>
+          <div className="absolute bottom-32 left-32 w-40 h-40 bg-gradient-to-r from-emerald-200 to-cyan-200 rounded-full opacity-15 float" style={{ animationDelay: '4s' }}></div>
         </div>
 
         <div className="w-full max-w-2xl mx-auto relative z-10">
@@ -269,7 +265,7 @@ const CreateParcel = () => {
                         onValueChange={field.onChange}
                         defaultValue={field.value}
                       >
-                        <FormControl   className="w-full text-black   ">
+                        <FormControl className="w-full text-black   ">
                           <SelectTrigger className="select-enhanced">
                             <SelectValue placeholder="Select parcel type" />
                           </SelectTrigger>
@@ -305,7 +301,7 @@ const CreateParcel = () => {
                   control={form.control}
                   name="weight"
                   render={({ field }) => (
-                    <FormItem className="form-field-enhanced scale-in" style={{animationDelay: '0.1s'}}>
+                    <FormItem className="form-field-enhanced scale-in" style={{ animationDelay: '0.1s' }}>
                       <FormLabel className="label-enhanced">
                         <Weight className="icon-container" />
                         Weight (kg)
@@ -325,22 +321,22 @@ const CreateParcel = () => {
                   )}
                 />
 
-        
+
                 {/* Delivery Address */}
                 <FormField
                   control={form.control}
                   name="deliveryAddress"
                   render={({ field }) => (
-                    <FormItem className="form-field-enhanced scale-in" style={{animationDelay: '0.3s'}}>
+                    <FormItem className="form-field-enhanced scale-in" style={{ animationDelay: '0.3s' }}>
                       <FormLabel className="label-enhanced">
                         <MapPin className="icon-container" />
                         Delivery Address
                       </FormLabel>
-                      <FormControl  className="text-black  " >
-                        <Input 
-                          placeholder="Enter delivery address" 
+                      <FormControl className="text-black  " >
+                        <Input
+                          placeholder="Enter delivery address"
                           className="input-enhanced"
-                          {...field} 
+                          {...field}
                         />
                       </FormControl  >
                       <FormMessage className="error-message" />
@@ -353,7 +349,7 @@ const CreateParcel = () => {
                   control={form.control}
                   name="receiver"
                   render={({ field }) => (
-                    <FormItem className="form-field-enhanced scale-in" style={{animationDelay: '0.4s'}}>
+                    <FormItem className="form-field-enhanced scale-in" style={{ animationDelay: '0.4s' }}>
                       <FormLabel className="label-enhanced">
                         <User className="icon-container" />
                         Receiver
@@ -361,18 +357,18 @@ const CreateParcel = () => {
                       <FormControl className="text-black  " >
                         <Select
                           onValueChange={field.onChange}
-                     
+
                         >
-                          <FormControl   className="w-full  text-black    ">
+                          <FormControl className="w-full  text-black    ">
                             <SelectTrigger className="select-enhanced">
                               <SelectValue placeholder="Select receiver" />
                             </SelectTrigger>
                           </FormControl  >
                           <SelectContent className="border-2 border-emerald-200 rounded-xl">
                             {allReceiver?.map((receiver: any) => (
-                              <SelectItem 
+                              <SelectItem
                                 key={receiver?._id}
-                                value={receiver?._id}
+                                value={receiver?.email}   // ✅ email পাঠাও _id না
                                 className="hover:bg-emerald-50 rounded-lg m-1"
                               >
                                 <div className="flex items-center gap-2">
@@ -380,6 +376,7 @@ const CreateParcel = () => {
                                   {receiver?.email}
                                 </div>
                               </SelectItem>
+
                             ))}
                           </SelectContent>
                         </Select>
@@ -394,17 +391,17 @@ const CreateParcel = () => {
                   control={form.control}
                   name="couponCode"
                   render={({ field }) => (
-                    <FormItem className="form-field-enhanced scale-in" style={{animationDelay: '0.5s'}}>
+                    <FormItem className="form-field-enhanced scale-in" style={{ animationDelay: '0.5s' }}>
                       <FormLabel className="label-enhanced">
                         <Gift className="icon-container" />
                         Coupon Code
                       </FormLabel>
-                      <FormControl   className="text-black" >
+                      <FormControl className="text-black" >
                         <div className="relative">
-                          <Input 
-                            placeholder="Enter coupon code (optional)" 
+                          <Input
+                            placeholder="Enter coupon code (optional)"
                             className="input-enhanced pr-20"
-                            {...field} 
+                            {...field}
                           />
                           {field.value && (
                             <div className="absolute right-3 top-1/2 transform -translate-y-1/2 bg-gradient-to-r from-orange-400 to-orange-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
@@ -418,7 +415,7 @@ const CreateParcel = () => {
                   )}
                 />
 
-                <div className="pt-4 scale-in" style={{animationDelay: '0.6s'}}>
+                <div className="pt-4 scale-in" style={{ animationDelay: '0.6s' }}>
                   <Button type="submit" className="button-enhanced w-full" onClick={form.handleSubmit(onSubmit)}>
                     <div className="flex items-center justify-center gap-3 relative z-10">
                       <Package className="w-5 h-5" />
@@ -430,7 +427,7 @@ const CreateParcel = () => {
             </Form>
 
             {/* Footer Info */}
-            <div className="mt-8 p-6 bg-gradient-to-r from-emerald-50 to-teal-50 rounded-2xl border border-emerald-200/50 scale-in" style={{animationDelay: '0.7s'}}>
+            <div className="mt-8 p-6 bg-gradient-to-r from-emerald-50 to-teal-50 rounded-2xl border border-emerald-200/50 scale-in" style={{ animationDelay: '0.7s' }}>
               <div className="flex items-center justify-center gap-2 text-emerald-700">
                 <Package className="w-5 h-5" />
                 <span className="font-semibold">Secure & Fast Delivery Guaranteed</span>
