@@ -14,15 +14,15 @@ export const parcelAPi = baseApi.injectEndpoints({
 
     // update parcel details
     editParcel: builder.mutation({
-      query: ({ parcelId, data }) => ({
-        url: `/parcel/${parcelId}/status`,
+      query: ({ parcelId }) => ({
+        url: `/parcel/${parcelId}/cancel`,
         method: "PATCH",
-        data: data,
+    
       }),
       invalidatesTags: ["PARCEL", "PARCELS"],
     }),
 
-    // Get parcels for the logged-in user
+    // Get parcels for the sender
     getMyParcel: builder.query({
       query: (params) => ({
         url: "/parcel/my",
@@ -45,6 +45,7 @@ export const parcelAPi = baseApi.injectEndpoints({
 });
 
 export const {
+
   useCreateParcelMutation,
   useGetMyParcelQuery,
   useEditParcelMutation,
