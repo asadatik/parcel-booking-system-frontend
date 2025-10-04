@@ -1,8 +1,8 @@
 import Profile from "@/pages/Profile";
-import ConfirmedParcel from "@/pages/Receiver/ConfirmedParcel";
+
 import IncomingParcel from "@/pages/Receiver/IncomingParcel";
 
-
+import deliveryHistory from "@/pages/Receiver/DeliveryHistory";
 import { IconListDetails } from "@tabler/icons-react";
 import { User } from "lucide-react";
 
@@ -26,7 +26,7 @@ export const receiverSidebarItems = [
     title: "Delivery Parcel",
     url: "/receiver/deceived-parcel",
     icon: IconListDetails,
-    component: ConfirmedParcel,
+    component: deliveryHistory ,
   },]
 
 }

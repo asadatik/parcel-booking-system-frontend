@@ -5,7 +5,7 @@ import CommonPagination from "@/components/pagination";
 import {
   Table,
   TableBody,
-  TableCaption,
+
   TableCell,
   TableFooter,
   TableHead,
@@ -94,11 +94,11 @@ const IncomingParcel = () => {
         }
         
         .incoming-table-header {
-          background: linear-gradient(135deg, #0ea5e9, #0284c7, #0369a1);
+            background: linear-gradient(135deg, #10b981, #059669, #047857);
           position: relative;
           overflow: hidden;
         }
-        
+      
         .incoming-table-header::before {
           content: '';
           position: absolute;
@@ -261,139 +261,142 @@ const IncomingParcel = () => {
           padding: 20px;
         }
         
-        .header-badge {
+  .stats-badge {
           display: inline-block;
-          padding: 12px 24px;
-          background: linear-gradient(135deg, #0ea5e9, #0284c7);
+          padding: 10px 20px;
+          background: linear-gradient(135deg, #10b981, #059669);
           color: white;
           border-radius: 16px;
           font-weight: 700;
-          font-size: 16px;
-          box-shadow: 0 8px 20px rgba(14, 165, 233, 0.3);
+          font-size: 15px;
+          box-shadow: 0 6px 16px rgba(16, 185, 129, 0.3);
           border: 2px solid rgba(255, 255, 255, 0.3);
-        }
+
+
       `}</style>
-      
+
       <section className="min-h-screen bg-gradient-to-br from-sky-50 via-blue-50 to-cyan-100 p-6 relative overflow-hidden">
         {/* Floating Background Elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-20 left-10 w-40 h-40 bg-gradient-to-r from-blue-300 to-cyan-300 rounded-full opacity-20 float"></div>
-          <div className="absolute top-60 right-20 w-32 h-32 bg-gradient-to-r from-sky-300 to-blue-300 rounded-full opacity-20 float" style={{animationDelay: '2s'}}></div>
-          <div className="absolute bottom-32 left-1/4 w-48 h-48 bg-gradient-to-r from-cyan-200 to-blue-200 rounded-full opacity-15 float" style={{animationDelay: '4s'}}></div>
-          <div className="absolute top-1/3 right-1/3 w-36 h-36 bg-gradient-to-r from-blue-300 to-sky-300 rounded-full opacity-20 float" style={{animationDelay: '1s'}}></div>
+          <div className="absolute top-60 right-20 w-32 h-32 bg-gradient-to-r from-sky-300 to-blue-300 rounded-full opacity-20 float" style={{ animationDelay: '2s' }}></div>
+          <div className="absolute bottom-32 left-1/4 w-48 h-48 bg-gradient-to-r from-cyan-200 to-blue-200 rounded-full opacity-15 float" style={{ animationDelay: '4s' }}></div>
+          <div className="absolute top-1/3 right-1/3 w-36 h-36 bg-gradient-to-r from-blue-300 to-sky-300 rounded-full opacity-20 float" style={{ animationDelay: '1s' }}></div>
         </div>
 
         <div className="container mx-auto relative z-10">
           {/* Header */}
           <div className="text-center mb-12 fade-in-up">
             <div className="flex items-center justify-center gap-4 mb-6">
-              <div className="p-4 bg-gradient-to-r from-blue-500 to-cyan-600 rounded-3xl shadow-xl glow">
+              <div className="p-4 bg-gradient-to-r from-emerald-500 to-cyan-600 rounded-3xl shadow-xl glow">
                 <svg className="w-10 h-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
                 </svg>
               </div>
-              <h1 className="text-6xl font-black bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-800 bg-clip-text text-transparent">
+              <h1 className="  text-2xl lg:text-6xl font-black bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-800 bg-clip-text text-transparent">
+
                 Incoming Parcels
               </h1>
             </div>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-6">
               View and confirm all parcels being sent to you
             </p>
-            <div className="header-badge">
+            <div className="stats-badge bounce">
               📦 {parcel?.length || 0} Parcels Awaiting Confirmation
             </div>
           </div>
 
           {/* Enhanced Table */}
           <div className="incoming-table-container scale-in">
-            <Table className="overflow-hidden">
-              <TableCaption className="incoming-table-caption">
-                A list of your recent invoices.
-              </TableCaption>
-              
-              <TableHeader className="incoming-table-header">
-                <TableRow>
-                  <TableHead className="">Tracking ID</TableHead>
-              
-                  <TableHead>Weight</TableHead>
-                  <TableHead className="">Fee</TableHead>
-                  <TableHead className="">Delivery Date</TableHead>
-                  <TableHead className="">Sender</TableHead>
-                  <TableHead className="">Status</TableHead>
-                  <TableHead className="">Action</TableHead>
-                </TableRow>
-              </TableHeader>
-              
-              <TableBody>
-                {parcel?.map((singleParcel: any, index: number) => (
-                  <TableRow 
-                    key={singleParcel?._id} 
-                    className="incoming-table-row slide-in-right"
-                    style={{animationDelay: `${index * 0.05}s`}}
-                  >
-                    <TableCell className="incoming-table-cell">
-                      <span className="incoming-tracking-badge">
-                        {singleParcel?.trackingId}
-                      </span>
-                    </TableCell>
-      
-                    
-                    <TableCell className="incoming-table-cell">
-                      <span className="incoming-weight-badge">
-                        ⚖️ {singleParcel.weight} kg
-                      </span>
-                    </TableCell>
-                    
-                    <TableCell className="incoming-table-cell">
-                      <span className="incoming-fee-badge">
-                        $ {singleParcel.parcelFee}
-                      </span>
-                    </TableCell>
-                    
-                    <TableCell className="incoming-table-cell">
-                      <span className="incoming-date-badge">
-                        📅 {singleParcel.DeliveryDate || 'TBD'}
-                      </span>
-                    </TableCell>
-                    
-                   
-                    
-                    <TableCell className="incoming-table-cell">
-                      <span className="incoming-sender-badge">
-                        👤 {singleParcel.sender?.name}
-                      </span>
-                    </TableCell>
-                    
-                    <TableCell className="incoming-table-cell">
-                      <span className={`incoming-status-badge ${getStatusColor(singleParcel.currentStatus)}`}>
-                        {singleParcel.currentStatus}
-                      </span>
-                    </TableCell>
-                    
-                    <TableCell className="flex gap-2 incoming-table-cell">
-                      <ParcelConfirmModal
-                        singleParcel={singleParcel}
-                      ></ParcelConfirmModal>
+            {parcel && parcel.length > 0 ? (
+              <Table className="overflow-hidden">
+                <TableHeader className="incoming-table-header">
+                  <TableRow>
+                    <TableHead>Tracking ID</TableHead>
+                    <TableHead>Weight</TableHead>
+                    <TableHead>Fee</TableHead>
+                    <TableHead>Delivery Date</TableHead>
+                    <TableHead>Sender</TableHead>
+                    <TableHead>Status</TableHead>
+                    <TableHead>Action</TableHead>
+                  </TableRow>
+                </TableHeader>
+
+                <TableBody>
+                  {parcel.map((singleParcel: any, index: number) => (
+                    <TableRow
+                      key={singleParcel?._id}
+                      className="incoming-table-row slide-in-right"
+                      style={{ animationDelay: `${index * 0.05}s` }}
+                    >
+                      <TableCell>
+                        <span className="incoming-tracking-badge">
+                          {singleParcel?.trackingId}
+                        </span>
+                      </TableCell>
+
+                      <TableCell>
+                        <span className="incoming-weight-badge">
+                          ⚖️ {singleParcel.weight} kg
+                        </span>
+                      </TableCell>
+
+                      <TableCell>
+                        <span className="incoming-fee-badge">
+                          $ {singleParcel.parcelFee}
+                        </span>
+                      </TableCell>
+
+                      <TableCell>
+                        <span className="incoming-date-badge">
+                          📅 {singleParcel.DeliveryDate || "TBD"}
+                        </span>
+                      </TableCell>
+
+                      <TableCell>
+                        <span className="incoming-sender-badge">
+                          👤 {singleParcel.sender?.name}
+                        </span>
+                      </TableCell>
+
+                      <TableCell>
+                        <span
+                          className={`incoming-status-badge ${getStatusColor(
+                            singleParcel.currentStatus
+                          )}`}
+                        >
+                          {singleParcel.currentStatus}
+                        </span>
+                      </TableCell>
+
+                      <TableCell className="flex gap-2">
+                        <ParcelConfirmModal singleParcel={singleParcel} />
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+
+                <TableFooter className="incoming-table-footer">
+                  <TableRow>
+                    <TableCell colSpan={10}>
+                      <CommonPagination
+                        currentPage={parcel?.meta?.page}
+                        totalPage={parcel?.meta?.totalPage}
+                        onPageChange={() => {
+                          throw new Error("Function not implemented.");
+                        }}
+                      />
                     </TableCell>
                   </TableRow>
-                ))}
-              </TableBody>
-              
-              <TableFooter className="incoming-table-footer">
-                <TableRow>
-                  <TableCell colSpan={10}>
-                    <CommonPagination
-                      currentPage={parcel?.meta?.page} 
-                      totalPage={parcel?.meta?.totalPage} 
-                      onPageChange={function (page: number): void {
-                        throw new Error("Function not implemented.");
-                      }}
-                    ></CommonPagination>
-                  </TableCell>
-                </TableRow>
-              </TableFooter>
-            </Table>
+                </TableFooter>
+              </Table>
+            ) : (
+              <div className="text-center py-12  text-gray-500 text-3xl font-medium fade-in">
+                🚫 No incoming parcels found
+              </div>
+            )}
           </div>
+
         </div>
       </section>
     </>

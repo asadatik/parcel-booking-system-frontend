@@ -42,6 +42,19 @@ export const parcelAPi = baseApi.injectEndpoints({
       invalidatesTags: ["PARCEL", "PARCELS"],
     }),
 
+    // Get delivery history for receiver
+getDeliveryHistory: builder.query({
+  query: (receiverId ) => ({
+    url: `/parcel/${receiverId}/history`,
+    method: "GET",
+    
+  }),
+  providesTags: ["PARCELS"],
+}),
+
+
+
+
  // incoming parcels
     getIncomingParcel: builder.query({
       query: (params) => ({
@@ -53,6 +66,7 @@ export const parcelAPi = baseApi.injectEndpoints({
     }),
 
 
+
     // Get all parcels (admin)
     getAllParcel: builder.query({
       query: (params) => ({
@@ -62,6 +76,9 @@ export const parcelAPi = baseApi.injectEndpoints({
       }),
       providesTags: ["PARCELS"],
     }),
+
+
+
 
 
 
@@ -79,4 +96,5 @@ export const {
   useGetAllParcelQuery,
   useGetIncomingParcelQuery,
   useConfirmDeliveryMutation,
+  useGetDeliveryHistoryQuery,
 } = parcelAPi;
