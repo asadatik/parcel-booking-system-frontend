@@ -31,7 +31,28 @@ export const parcelAPi = baseApi.injectEndpoints({
       }),
       providesTags: ["PARCEL"],
     }),
- 
+
+    // Confirm parcel delivery
+    confirmDelivery: builder.mutation({
+      query: ({ parcelId, data }) => ({
+        url: `/parcel/confirm/${parcelId}`,
+        method: "PATCH",
+        data: data,
+      }),
+      invalidatesTags: ["PARCEL", "PARCELS"],
+    }),
+
+ // incoming parcels
+    getIncomingParcel: builder.query({
+      query: (params) => ({
+        url: "/parcel/incoming",
+        method: "GET",
+        params: params,
+      }),
+      providesTags: ["PARCEL"],
+    }),
+
+
     // Get all parcels (admin)
     getAllParcel: builder.query({
       query: (params) => ({
@@ -41,8 +62,14 @@ export const parcelAPi = baseApi.injectEndpoints({
       }),
       providesTags: ["PARCELS"],
     }),
+
+
+
+
   }),
 });
+
+
 
 export const {
 
@@ -50,4 +77,6 @@ export const {
   useGetMyParcelQuery,
   useEditParcelMutation,
   useGetAllParcelQuery,
+  useGetIncomingParcelQuery,
+  useConfirmDeliveryMutation,
 } = parcelAPi;

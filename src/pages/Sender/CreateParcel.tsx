@@ -71,7 +71,7 @@ const CreateParcel = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-orange-50 p-6 relative overflow-hidden">
+    <div className="min-h-screen text-black  bg-gradient-to-br from-emerald-50 via-white to-orange-50 p-6 relative overflow-hidden">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
           className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-r from-emerald-400/30 to-teal-400/30 rounded-full blur-xl"

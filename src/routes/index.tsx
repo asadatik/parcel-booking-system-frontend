@@ -13,7 +13,8 @@ import { generateRoutes } from "@/utils/generateRoutes";
 import { senderSidebarItems } from "./senderaSideBar";
 import { adminSidebarItems } from "./adminSidebarItems";
 import Contact from "@/pages/public/Contact";
-// import { userSidebarItems } from "./userSidebarItems";
+import { receiverSidebarItems } from "./receiverSideBarItems";
+
 
 export const router = createBrowserRouter([
   {
@@ -58,16 +59,16 @@ export const router = createBrowserRouter([
       ...generateRoutes(senderSidebarItems),
     ],
   },
-  // {
-  //   Component: withAuth(DashboardLayout, role.RECEIVER as TRole),
-  //   path: "/receiver",
-  //   children: [
-  //     { index: true, element: <Navigate to="/receiver/my-profile"></Navigate> },
+  {
+    Component: withAuth(DashboardLayout, role.RECEIVER as TRole),
+    path: "/receiver",
+    children: [
+      { index: true, element: <Navigate to="/receiver/my-profile"></Navigate> },
 
     
-  //     ...generateRoutes(receiverSidebarItems),
-  //   ],
-  // },
+      ...generateRoutes(receiverSidebarItems),
+    ],
+  },
 
 
 //

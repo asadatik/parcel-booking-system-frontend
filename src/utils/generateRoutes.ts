@@ -5,6 +5,7 @@ export const generateRoutes = (sidebarItems: ISidebarItem[]) => {
     section.items.map((route) => ({
       path: route.url,
       Component: route.component,
+      
     }))
   );
 };

@@ -11,58 +11,67 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { useEditParcelMutation } from "@/redux/features/parcel/parcel.api";
-import { BookCheck } from "lucide-react";
-import { toast } from "sonner";
+import { useConfirmDeliveryMutation } from "@/redux/features/parcel/parcel.api";
+import { CheckCircle, AlertTriangle } from "lucide-react";
+
+
 
 export function ParcelConfirmModal({ singleParcel }: any) {
-  const [editParcel] = useEditParcelMutation();
+  const [confirmDelivery] = useConfirmDeliveryMutation();
 
-  const handleConfirm = async () => {
-    const toastId = toast.loading("Parcel delivery confirm loading...");
-
-    const parcelId = singleParcel?.trackingId;
-    const data = { status: "Delivered" };
-
+  const handleConfirmDelivery = async () => {
     try {
-      const res = await editParcel({ parcelId, data }).unwrap();
-
-      console.log(res);
-      toast.success("Parcel delivery confirmed", { id: toastId });
+      await confirmDelivery({
+        parcelId: singleParcel._id,
+        data: { currentStatus: "Delivered", isDelivered: true },
+      }).unwrap();
+      alert("Parcel marked as Delivered!");
     } catch (error) {
-      toast.error("Parcel delivery confirm failed", { id: toastId });
-
-      console.log(error);
+      console.error(error);
+      alert("Failed to confirm delivery");
     }
   };
+
   return (
-    <AlertDialog>
-      <AlertDialogTrigger asChild>
-        {singleParcel.status === "In Transit" ? (
-          <Button variant={"secondary"} className="cursor-pointer">
-            <BookCheck />
+    <>
+      <AlertDialog>
+        <AlertDialogTrigger asChild>
+          <Button
+            variant={singleParcel.currentStatus === "Delivered" ? "secondary" : "destructive"}
+            disabled={singleParcel.currentStatus === "Delivered"}
+            className="cursor-pointer"
+          >
+            <CheckCircle className="w-5 h-5 mr-2" /> 
+            {singleParcel.currentStatus === "Delivered" ? "Delivered" : "Confirm Delivery"}
           </Button>
-        ) : (
-          <Button disabled variant={"secondary"} className="cursor-not-allowed">
-            <BookCheck />
-          </Button>
-        )}
-      </AlertDialogTrigger>
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-          <AlertDialogDescription>
-            This action cannot be undone. This will permanently Confirm your
-            parcel.
-          </AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={handleConfirm}>
-            Continue
-          </AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
+        </AlertDialogTrigger>
+
+        <AlertDialogContent className="enhanced-alert-content">
+          <AlertDialogHeader className="enhanced-alert-header">
+            <AlertDialogTitle className="enhanced-alert-title">
+              <div className="warning-icon-container">
+                <AlertTriangle className="w-6 h-6 text-orange-600" />
+              </div>
+              Confirm Parcel Delivery?
+            </AlertDialogTitle>
+            <AlertDialogDescription className="enhanced-alert-description">
+              Are you sure you want to mark this parcel as delivered? This action cannot be undone.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+
+          <AlertDialogFooter className="enhanced-alert-footer">
+            <AlertDialogCancel className="cancel-button-enhanced">
+              Cancel
+            </AlertDialogCancel>
+            <AlertDialogAction
+              className="continue-button-enhanced"
+              onClick={handleConfirmDelivery}
+            >
+              Confirm
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </>
   );
 }

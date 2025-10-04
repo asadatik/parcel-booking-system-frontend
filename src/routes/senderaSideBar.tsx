@@ -7,7 +7,7 @@ import { User } from "lucide-react";
 export const senderSidebarItems = [
 
 
-  { title: "Admin", items: [
+  { title: "Sender", items: [
     {
       title: "Profile",
       url: "/sender/my-profile",
