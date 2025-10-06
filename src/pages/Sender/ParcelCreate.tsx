@@ -42,7 +42,7 @@ const parcelSchema = z.object({
 
 const ParcelCreate = () => {
 
-  const [createParcel, { isLoading }] = useCreateParcelMutation();
+  const [createParcel   ] = useCreateParcelMutation();
   const { data: user } = useUserInfoQuery(undefined);
   const { data: receiver } = useGetAllReceiverQuery(undefined);
 
@@ -60,14 +60,17 @@ const ParcelCreate = () => {
     },
   });
 
+
   const allReceiver = receiver?.data?.data;
   console.log("receiver", allReceiver);
 
   const onSubmit = async (data: any) => {
     data.sender = user?.data?._id;
 
+
     console.log("Parcel form submitted:", data);
     const toastId = toast.loading("Parcel creating...");
+
 
     try {
       const res = await createParcel(data).unwrap();

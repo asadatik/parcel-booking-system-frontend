@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import {
   Form,
@@ -44,19 +45,28 @@ export function LoginForm({
     } 
     
     catch (err) {
-      console.log(err.data.message);
-   toast.warning("something is going wrong");
-   //
-      if (err.data.message === "Invalid Password") {
-        toast.error("Invalid credentials");
-      }
-  
-           
-
-      if (err.data.message === "User is not verified") {
-        toast.error("Your account is not verified");
-        navigate("/verify", { state: data.email });
-      }
+  if (
+    typeof err === "object" &&
+    err !== null &&
+    "data" in err &&
+    typeof (err as any).data === "object" &&
+    (err as any).data !== null &&
+    "message" in (err as any).data
+  ) {
+    const message = (err as any).data.message;
+    console.log(message);
+    toast.warning("something is going wrong");
+    if (message === "Invalid Password") {
+      toast.error("Invalid credentials");
+    }
+    if (message === "User is not verified") {
+      toast.error("Your account is not verified");
+      navigate("/verify", { state: data.email });
+    }
+  } else {
+    toast.warning("Something went wrong");
+    console.log(err);
+  }
 
      //  
 
