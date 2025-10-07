@@ -52,7 +52,7 @@ const MyParcel = () => {
   if (isLoading) {
     return <Loader></Loader>;
   }
-  
+
   return (
     <>
       <style>{`
@@ -251,14 +251,14 @@ const MyParcel = () => {
           padding: 20px;
         }
       `}</style>
-      
+
       <section className="min-h-screen bg-gradient-to-br from-emerald-50 via-emerald-100 to-teal-100 p-6 relative overflow-hidden">
         {/* Floating Background Elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-20 left-10 w-40 h-40 bg-gradient-to-r from-emerald-300 to-teal-300 rounded-full opacity-20 float"></div>
-          <div className="absolute top-60 right-20 w-32 h-32 bg-gradient-to-r from-orange-300 to-pink-300 rounded-full opacity-20 float" style={{animationDelay: '2s'}}></div>
-          <div className="absolute bottom-32 left-1/4 w-48 h-48 bg-gradient-to-r from-emerald-200 to-cyan-200 rounded-full opacity-15 float" style={{animationDelay: '4s'}}></div>
-          <div className="absolute top-1/3 right-1/4 w-36 h-36 bg-gradient-to-r from-teal-300 to-emerald-300 rounded-full opacity-20 float" style={{animationDelay: '1s'}}></div>
+          <div className="absolute top-60 right-20 w-32 h-32 bg-gradient-to-r from-orange-300 to-pink-300 rounded-full opacity-20 float" style={{ animationDelay: '2s' }}></div>
+          <div className="absolute bottom-32 left-1/4 w-48 h-48 bg-gradient-to-r from-emerald-200 to-cyan-200 rounded-full opacity-15 float" style={{ animationDelay: '4s' }}></div>
+          <div className="absolute top-1/3 right-1/4 w-36 h-36 bg-gradient-to-r from-teal-300 to-emerald-300 rounded-full opacity-20 float" style={{ animationDelay: '1s' }}></div>
         </div>
 
         <div className="container mx-auto relative z-10">
@@ -276,7 +276,7 @@ const MyParcel = () => {
               <TableCaption className="enhanced-table-caption">
                 A list of your recent invoices.
               </TableCaption>
-              
+
               <TableHeader className="enhanced-table-header">
                 <TableRow>
                   <TableHead className="">Tracking ID</TableHead>
@@ -289,68 +289,75 @@ const MyParcel = () => {
                   <TableHead className="">Action</TableHead>
                 </TableRow>
               </TableHeader>
-              
+
               <TableBody>
                 {parcel?.map((singleParcel: any, index: number) => (
-                  <TableRow 
-                    key={singleParcel?._id} 
+                  <TableRow
+                    key={singleParcel?._id}
                     className="enhanced-table-row slide-in-right"
-                    style={{animationDelay: `${index * 0.05}s`}}
+                    style={{ animationDelay: `${index * 0.05}s` }}
                   >
                     <TableCell className="enhanced-table-cell">
                       <span className="tracking-id-badge">
                         {singleParcel?.trackingId}
                       </span>
                     </TableCell>
-                    
+
                     <TableCell className="enhanced-table-cell">
                       <span className="type-badge">
                         {singleParcel.parcelType}
                       </span>
                     </TableCell>
-                    
+
                     <TableCell className="enhanced-table-cell">
                       <span className="weight-badge">
                         ⚖️ {singleParcel.weight} kg
                       </span>
                     </TableCell>
-                    
+
                     <TableCell className="enhanced-table-cell">
                       <span className="fee-badge">
                         ${singleParcel.parcelFee}
                       </span>
                     </TableCell>
-                    
+
                     <TableCell className="enhanced-table-cell">
                       <span className="date-badge">
-                        📅 {singleParcel.DeliveryDate || 'TBD'}
+                        📅 {singleParcel.DeliveryDate
+                          ? new Date(singleParcel.DeliveryDate).toLocaleDateString("en-US", {
+                            year: "numeric",
+                            month: "short",
+                            day: "numeric",
+                          })
+                          : "TBD"}
+
                       </span>
                     </TableCell>
-                    
+
                     <TableCell className="enhanced-table-cell">
                       <div className="address-cell" title={singleParcel.deliveryAddress}>
                         📍 {singleParcel.deliveryAddress}
                       </div>
                     </TableCell>
-                    
+
                     <TableCell className="enhanced-table-cell">
                       <span className={`status-badge ${getStatusColor(singleParcel.currentStatus)}`}>
                         {singleParcel.currentStatus}
                       </span>
                     </TableCell>
-                    
+
                     <TableCell className="enhanced-table-cell">
                       <div className="action-cell flex gap-2">
                         <ParcelDeleteModal
                           singleParcel={singleParcel}
                         ></ParcelDeleteModal>
-                      
+
                       </div>
                     </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
-              
+
               <TableFooter className="enhanced-table-footer">
                 <TableRow>
                   <TableCell colSpan={10}>

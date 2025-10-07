@@ -349,7 +349,14 @@ const IncomingParcel = () => {
 
                       <TableCell>
                         <span className="incoming-date-badge">
-                          📅 {singleParcel.DeliveryDate || "TBD"}
+                            📅 {singleParcel.DeliveryDate
+      ? new Date(singleParcel.DeliveryDate).toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        })
+      : "TBD"}
+
                         </span>
                       </TableCell>
 
