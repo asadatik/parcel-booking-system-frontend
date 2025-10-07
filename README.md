@@ -46,7 +46,7 @@ A **full-stack MERN** parcel management platform that allows users to **book, tr
 | Role | Description | Key Access |
 |------|--------------|-------------|
 | **Admin** | Manage users, parcels, and deliverymen. | Full access |
-| **Deliveryman** | Manage assigned parcels and update delivery status. | Limited access |
+
 | **User (Sender/Receiver)** | Book and track parcels. | Personal access |
 
 ---
@@ -59,11 +59,6 @@ A **full-stack MERN** parcel management platform that allows users to **book, tr
 - Access analytics dashboard with **parcel stats**.
 - Assign deliverymen manually.
 - Monitor real-time delivery status updates.
-
-### 🚚 **Deliveryman Dashboard**
-- View **assigned parcels**.
-- Update parcel status (e.g., Picked, On the Way, Delivered).
-- Access history of completed deliveries.
 
 ### 👤 **User Dashboard**
 - **Book a Parcel:** enter sender, receiver, parcel type, weight, and delivery date.
@@ -106,40 +101,6 @@ frontend/
 │   └── main.jsx
 │
 └── package.json
-📊 Data Models (Simplified)
-User Model
-js
-Copy code
-{
-  name: String,
-  email: String,
-  password: String,
-  role: "ADMIN" | "DELIVERYMAN" | "USER",
-  phone: String,
-  isActive: Boolean
-}
-Parcel Model
-js
-Copy code
-{
-  sender: { userId: ObjectId, name: String },
-  receiver: { userId: ObjectId, name: String },
-  parcelType: String,
-  weight: Number,
-  statusLogs: [{ status: String, timestamp: Date }],
-  deliveryDate: Date,
-  price: Number
-}
-🧭 API Overview
-Method	Endpoint	Description
-POST	/auth/register	Register a new user
-POST	/auth/login	Login user
-GET	/users	Get all users (Admin only)
-POST	/parcels	Create new parcel
-GET	/parcels/:id	Get parcel by ID
-PATCH	/parcels/:id/status	Update parcel status
-GET	/parcels/receiver/:id	Get incoming parcels
-GET	/parcels/sender/:id	Get outgoing parcels
 
 🧩 Key Functionalities Implemented
 ✅ JWT-based Authentication
