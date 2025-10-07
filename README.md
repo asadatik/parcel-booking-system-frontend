@@ -6,10 +6,8 @@ A **full-stack MERN** parcel management platform that allows users to **book, tr
 
 ## 🚀 Live Links
 
-- **Frontend (Vercel):** [Live Demo](https://your-frontend-url.vercel.app)
-- **Backend (Vercel):** [Live API](https://your-backend-url.vercel.app/api/v1)
-- **Client GitHub:** [Frontend Repo](https://github.com/your-frontend-repo)
-- **Server GitHub:** [Backend Repo](https://github.com/your-backend-repo)
+- **Frontend (Vercel):** [Live Demo](https://percel-frontend.vercel.app/)
+- **Backend (Vercel):** [Live API](https://assingmnet-5-percel-booking-system.vercel.app/)
 
 ---
 
@@ -75,25 +73,9 @@ A **full-stack MERN** parcel management platform that allows users to **book, tr
 
 ---
 
-## ⚙️ Environment Setup
-
-### 🔑 Backend Environment Variables
-Create a `.env` file in your backend root:
-
-```env
-PORT=5000
-DATABASE_URL=your_mongodb_connection_string
-JWT_SECRET=your_jwt_secret
-NODE_ENV=development
-🔑 Frontend Environment Variables
-Create a .env file in your frontend root:
-
-env
-Copy code
-VITE_API_URL=https://your-backend-url.vercel.app/api/v1
 🧠 Project Structure (Backend)
 pgsql
-Copy code
+
 backend/
 │
 ├── src/
