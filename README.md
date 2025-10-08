@@ -142,7 +142,7 @@ npm run dev
 
 🧪 Add test cases with Jest & Supertest
 
-👨‍💻 Author
+##👨‍💻 Author : 
 Asadujjaman Atik
 Full Stack Developer | Passionate about clean code & modern web apps
 
