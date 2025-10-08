@@ -11,8 +11,25 @@
 - **Sender** – Create new parcels, view and manage their own parcels.  
 - **Receiver** – View incoming parcels, confirm delivery, and check history.  
 
-All user operations are protected with **JWT authentication**, validated with **Zod**, and structured using a clean, modular architecture.  
+All user operations are protected with **JWT authentication**, validated with **Zod**, and structured using a clean, modular architecture.  '
 
+🔗 **Live Demo**: [Parcel Delivery Frontend](https://percel-frontend.vercel.app/)  
+💻 **Repository (Frontend)**: [GitHub](https://github.com/asadatik/parcel-booking-system-frontend)
+
+**Credentials**: <br/>
+Sender: 
+  email:  asadatik709@gmail.com
+  password: Pa$$w0rd!
+
+Receiver: 
+  email: reciver@gmail.com
+  password: Pa$$w0rd!
+
+Admin:
+  email:admin123@gmail.com 
+  password: Pa$$w0rd!
+
+---
 ---
 
 ## 🧩 Core Functionalities  
