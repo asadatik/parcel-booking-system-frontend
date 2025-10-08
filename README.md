@@ -46,6 +46,7 @@ All user operations are protected with **JWT authentication**, validated with **
 
 ### 🧠 Backend
 backend/
+```
 │
 ├── src/
 │ ├── app/
@@ -60,8 +61,10 @@ backend/
 │ └── index.ts
 │
 └── package.json
+```
 
 ### 💻 Frontend
+```
 frontend/
 │
 ├── src/
@@ -75,7 +78,7 @@ frontend/
 │ └── main.tsx
 │
 └── package.json
-
+```
 ## 🧠 Role-Based Dashboards  
 
 | Role | Capabilities |
