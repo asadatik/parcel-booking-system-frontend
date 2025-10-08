@@ -118,21 +118,28 @@ frontend/
 ✅ RTK Query + Axios combo provides full control + caching
 ✅ ObjectId-based receiver linking ensures robust data relation
 
-🧭 Setup Instructions
-Backend
-bash
-Copy code
-cd backend
+## 🛠 Setup & Installation
+
+### 1. Clone & Install
+
+```bash
+git clone https://github.com/asadatik/parcel-booking-system-frontend
+cd Parcel-Delivery-Backend
 npm install
-cp .env.example .env   # configure DB + JWT_SECRET
-npm run dev
-Frontend
-bash
-Copy code
-cd frontend
-npm install
-cp .env.example .env   # set VITE_API_URL
-npm run dev
+```
+
+### 3. Run the App
+
+```bash
+npm run dev      # Development mode
+npm run build    # Compile TypeScript
+npm run start    # Run compiled app
+```
+
+---
+
+
+
 🧰 Future Enhancements
 📊 Admin analytics dashboard with charts
 
