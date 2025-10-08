@@ -1,113 +1,146 @@
-# 📦 Parcel Booking System
+# 📦 ParcelPro — Smart Parcel Delivery & Tracking System  
 
-A **full-stack MERN** parcel management platform that allows users to **book, track, and manage parcel deliveries** efficiently. The system supports **three roles** — Admin, Deliveryman, and User — each with dedicated dashboards and functionalities.
-
----
-
-## 🚀 Live Links
-
-- **Frontend (Vercel):** [Live Demo](https://percel-frontend.vercel.app/)
-- **Backend (Vercel):** [Live API](https://assingmnet-5-percel-booking-system.vercel.app/)
+> A full-stack MERN project built with TypeScript that enables users to send, receive, and manage parcels seamlessly with **role-based dashboards** and **JWT-secured authentication**.  
 
 ---
 
-## 🧩 Tech Stack
+## 🚀 Overview  
 
-### Frontend:
-- **React.js** (with Vite)
-- **React Router DOM**
-- **Tailwind CSS** + **DaisyUI**
-- **React Hook Form + Zod**
-- **TanStack Query (React Query)**
-- **Axios**
-- **Framer Motion** (for animations)
+**ParcelPro** is a smart parcel management system featuring three roles:  
+- **Admin** – Manage users, control parcel statuses, view all parcels.  
+- **Sender** – Create new parcels, view and manage their own parcels.  
+- **Receiver** – View incoming parcels, confirm delivery, and check history.  
 
-### Backend:
-- **Node.js**
-- **Express.js**
-- **Mongoose**
-- **Zod** (schema validation)
-- **JWT Authentication**
-- **Cors, Cookie Parser, Dotenv**
-- **Bcrypt.js** (for password hashing)
-
-### Database:
-- **MongoDB (Mongoose ODM)**
-
-### Deployment:
-- **Frontend → Vercel**
-- **Backend → Vercel**
-- **Database → MongoDB Atlas**
+All user operations are protected with **JWT authentication**, validated with **Zod**, and structured using a clean, modular architecture.  
 
 ---
 
-## 👥 User Roles
+## 🧩 Core Functionalities  
 
-| Role | Description | Key Access |
-|------|--------------|-------------|
-| **Admin** | Manage users, parcels, and deliverymen. | Full access |
-
-| **User (Sender/Receiver)** | Book and track parcels. | Personal access |
-
----
-
-## 📋 Core Features
-
-### 🧑‍💼 **Admin Panel**
-- Manage all **users** (activate, deactivate, assign deliverymen).
-- View all **parcels** in the system.
-- Access analytics dashboard with **parcel stats**.
-- Assign deliverymen manually.
-- Monitor real-time delivery status updates.
-
-### 👤 **User Dashboard**
-- **Book a Parcel:** enter sender, receiver, parcel type, weight, and delivery date.
-- **Track Parcels:** live status tracking.
-- **Update Profile:** manage user info.
-- View **incoming** and **outgoing parcels** separately.
+✅ JWT-based Authentication (Access & Refresh Tokens)  
+✅ Role-based Access Control (Admin / Sender / Receiver)  
+✅ Secure Password Hashing using **Bcrypt**  
+✅ Data Validation with **Zod**  
+✅ Parcel Tracking with **Status Logs**  
+✅ Modular, Maintainable Code Architecture  
+✅ Axios Interceptor with `withCredentials`  
+✅ Toast Notifications (React Hot Toast)  
+✅ Pagination, Status Badges, and Modern UI Animations  
 
 ---
 
-🧠 Project Structure (Backend)
-pgsql
+## ⚙️ Tech Stack  
 
+**Frontend:**  
+> React + TypeScript + TailwindCSS + ShadCN UI + RTK Query + React Hook Form + Zod + Framer Motion  
+
+**Backend:**  
+> Node.js + Express + TypeScript + Mongoose + Zod + JWT + Bcrypt  
+
+**Database:**  
+> MongoDB (Cloud via MongoDB Atlas)  
+
+---
+
+## 📁 Project Structure  
+
+### 🧠 Backend
 backend/
 │
 ├── src/
-│   ├── app/
-│   │   ├── modules/
-│   │   │   ├── user/
-│   │   │   ├── parcel/
-│   │   │   └── auth/
-│   │   ├── utils/
-│   │   └── middlewares/
-│   ├── config/
-│   ├── server.ts
-│   └── index.ts
-│
-└── package.json
-📂 Frontend Structure
-css
-Copy code
-frontend/
-│
-├── src/
-│   ├── components/
-│   ├── pages/
-│   ├── layouts/
-│   ├── routes/
-│   ├── hooks/
-│   ├── utils/
-│   └── main.jsx
+│ ├── app/
+│ │ ├── modules/
+│ │ │ ├── auth/
+│ │ │ ├── user/
+│ │ │ └── parcel/
+│ │ ├── middlewares/
+│ │ └── utils/
+│ ├── config/
+│ ├── server.ts
+│ └── index.ts
 │
 └── package.json
 
-🧩 Key Functionalities Implemented
-✅ JWT-based Authentication
-✅ Role-based Access Control (RBAC)
-✅ Secure Password Hashing (Bcrypt)
-✅ Zod Validation for data integrity
-✅ Parcel Tracking with Status Logs
-✅ Modular Architecture (Clean Code)
-✅ Axios Interceptor with withCredentials
-✅ Toast Notifications (React Hot Toast)
+### 💻 Frontend
+frontend/
+│
+├── src/
+│ ├── components/
+│ ├── pages/
+│ ├── layouts/
+│ ├── redux/
+│ ├── routes/
+│ ├── hooks/
+│ ├── utils/
+│ └── main.tsx
+│
+└── package.json
+
+## 🧠 Role-Based Dashboards  
+
+| Role | Capabilities |
+|------|---------------|
+| **Admin** | View all parcels, manage users, update parcel status |
+| **Sender** | Create parcels, view & cancel own parcels |
+| **Receiver** | View incoming parcels, confirm deliveries |
+
+---
+
+## 🔌 API Endpoints  
+
+### Auth  
+- `POST /auth/login` → User login  
+- `POST /auth/refresh-token` → Refresh JWT  
+- `POST /auth/logout` → Logout user  
+- `POST /auth/change-password` → Change password  
+
+### Users  
+- `PATCH /user/:id` → Update user info  
+- `GET /user/all-users` → Get all users (Admin only)  
+- `GET /user/all-receiver` → Get all receiver users  
+
+### Parcels  
+- `POST /parcel/create` → Create a new parcel  
+- `GET /parcel/all` → Get all parcels (Admin)  
+- `GET /parcel/my` → Get sender’s parcels  
+- `GET /parcel/incoming` → Get receiver’s incoming parcels  
+- `PATCH /parcel/:id/status` → Update parcel status (Admin)  
+- `PATCH /parcel/:id/cancel` → Cancel parcel (Sender)  
+
+---
+
+🧠 Why This Design
+✅ Zod Validation ensures both backend & frontend data integrity
+✅ Modular folder structure keeps code maintainable
+✅ RTK Query + Axios combo provides full control + caching
+✅ ObjectId-based receiver linking ensures robust data relation
+
+🧭 Setup Instructions
+Backend
+bash
+Copy code
+cd backend
+npm install
+cp .env.example .env   # configure DB + JWT_SECRET
+npm run dev
+Frontend
+bash
+Copy code
+cd frontend
+npm install
+cp .env.example .env   # set VITE_API_URL
+npm run dev
+🧰 Future Enhancements
+📊 Admin analytics dashboard with charts
+
+🔔 Email notifications on parcel status update
+
+⚡ Real-time status update via WebSocket
+
+🧪 Add test cases with Jest & Supertest
+
+👨‍💻 Author
+Asadujjaman Atik
+Full Stack Developer | Passionate about clean code & modern web apps
+
+
