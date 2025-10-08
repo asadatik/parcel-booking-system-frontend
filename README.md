@@ -141,7 +141,7 @@ frontend/
 
 ```bash
 git clone https://github.com/asadatik/parcel-booking-system-frontend
-cd Parcel-Delivery-Backend
+cd parcel-booking-system-frontend
 npm install
 ```
 
