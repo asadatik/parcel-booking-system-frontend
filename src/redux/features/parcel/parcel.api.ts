@@ -20,7 +20,23 @@ export const parcelAPi = baseApi.injectEndpoints({
     
       }),
       invalidatesTags: ["PARCEL", "PARCELS"],
-    }),
+    })
+    
+    ,
+
+
+// Update parcel status by admin
+updateParcelStatus: builder.mutation({
+  query: ({ parcelId, data }) => ({
+    url: `/parcel/${parcelId}/status`, // ✅ exact backend route
+    method: "PATCH",
+    data: data,
+  }),
+  invalidatesTags: ["PARCEL", "PARCELS"],
+}),
+
+
+
 
     // Get parcels for the sender
     getMyParcel: builder.query({
@@ -97,4 +113,5 @@ export const {
   useGetIncomingParcelQuery,
   useConfirmDeliveryMutation,
   useGetDeliveryHistoryQuery,
+  useUpdateParcelStatusMutation,
 } = parcelAPi;

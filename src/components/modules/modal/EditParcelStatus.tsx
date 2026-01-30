@@ -24,7 +24,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useEditParcelMutation } from "@/redux/features/parcel/parcel.api";
+import { useUpdateParcelStatusMutation } from "@/redux/features/parcel/parcel.api";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Settings } from "lucide-react";
 import { useState } from "react";
@@ -41,31 +41,42 @@ const parcelSchema = z.object({
 export function EditParcelStatus({ singleParcel }: any) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [editParcel] = useEditParcelMutation();
-
+  const [editParcel] = useUpdateParcelStatusMutation();
+  console.log("Single Parcel from EditParcelStatus: ", singleParcel);
   const form = useForm<z.infer<typeof parcelSchema>>({
     resolver: zodResolver(parcelSchema),
     defaultValues: {
-      status: singleParcel?.status || "",
+      status: singleParcel?.currentStatus || "",
     },
   });
 
-  const onSubmit = async (data: any) => {
-    if (!singleParcel?._id) return toast.error("Parcel ID missing");
-    setLoading(true);
-    const toastId = toast.loading("Parcel status updating...");
-    const parcelId = singleParcel._id; // use _id for backend route
-    try {
-      await editParcel({ parcelId, data }).unwrap();
-      toast.success("Parcel status updated", { id: toastId });
-      setOpen(false);
-    } catch (error) {
-      toast.error("Parcel status updating failed", { id: toastId });
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  };
+
+console.log("Submitting parcel update:", singleParcel);
+console.log("Parcel ID:", singleParcel?._id);
+
+
+
+const onSubmit = async (data: any) => {
+  if (!singleParcel?._id) return toast.error("Parcel ID missing");
+  setLoading(true);
+  const toastId = toast.loading("Parcel status updating...");
+  const parcelId = singleParcel._id;
+  try {
+    await editParcel({ parcelId, data }).unwrap();
+    toast.success("Parcel status updated", { id: toastId });
+    setOpen(false);
+  } catch (error: any) {
+    const message =
+      error?.data?.message ||
+      error?.message ||
+      "Parcel status updating failed";
+    toast.error(message, { id: toastId });
+    console.error(error);
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -140,7 +151,7 @@ export function EditParcelStatus({ singleParcel }: any) {
               disabled={loading}
               className="bg-gradient-to-r from-emerald-600 via-emerald-500 to-orange-400 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold shadow-md rounded-lg hover:from-emerald-500 hover:via-emerald-400 hover:to-orange-300 transition-all duration-300"
             >
-              {loading ? "Saving..." : "Save changes"}
+              {loading ? "Saving..." : "Save changes"}    
             </Button>
           </DialogFooter>
         </motion.div>

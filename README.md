@@ -1,6 +1,6 @@
 # 📦 ParcelPro — Smart Parcel Delivery & Tracking System  
 
-> A full-stack MERN project built with TypeScript that enables users to send, receive, and manage parcels seamlessly with **role-based dashboards** and **JWT-secured authentication**.  
+> A full-stack parcel delivery management system built to streamline parcel creation, tracking, and delivery confirmation through role-based dashboards for Admin, Sender, and Receiver. The platform ensures secure operations, controlled status transitions, and real-time visibility across the entire delivery lifecycle.
 
 ---
 

@@ -79,9 +79,9 @@ const Navbar = () => {
 
   return (
     <section className="  fixed top-0 left-0 right-0 z-50  py-4 bg-gradient-to-r from-emerald-100 via-cyan-100 to-orange-50 dark:from-emerald-950 dark:via-background dark:to-orange-950/50 backdrop-blur-sm border-b border-emerald-100 dark:border-emerald-800/30">
-      <div className="container">
+      <div className="container mx-auto ">
         {/* Desktop Menu */}
-        <nav className="hidden    justify-between lg:flex items-center">
+        <nav className="hidden    justify-between lg:flex    items-center">
           <div className="flex mx-4  items-center gap-8">
             <NavLink to="/">
             <div className="flex items-center gap-3 group">
@@ -197,7 +197,7 @@ const Navbar = () => {
               </div>
             </NavLink>
             <Sheet>
-              <div className="flex gap-3">
+              <div className="flex gap-3 items-center">
                 <div className="p-1 rounded-lg bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border border-emerald-100 dark:border-emerald-800/30">
                   <ModeToggle />
                 </div>

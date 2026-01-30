@@ -48,7 +48,7 @@ export function RegisterForm({ className, ...props }: React.HTMLAttributes<HTMLD
     try {
       await register({ name: data.name, email: data.email, password: data.password }).unwrap();
       toast.success("User created successfully ✅");
-      navigate("/verify", { state: data.email });
+      navigate("/login", { state: data.email });
     } catch (error) {
       console.error(error);
       toast.error("Registration failed ❌");

@@ -396,21 +396,21 @@ const AllParcels = () => {
                         📍 {singleParcel?.deliveryAddress}
                       </div>
                     </TableCell>
-                    
+                    {/* Status */}
                     <TableCell className="all-parcels-cell">
                       {singleParcel.statusLogs?.length > 0 ? (
                         <span
                           className="all-status-badge"
                           style={{
                             color: "black",
-                            backgroundColor: statusColor[singleParcel.statusLogs[singleParcel.statusLogs.length - 1].status] || "gray",
+                            backgroundColor: statusColor[singleParcel.currentStatus] || "gray",
                             padding: "8px 16px",
                             borderRadius: "20px",
                             display: "inline-block",
                             textAlign: "center",
                           }}
                         >
-                          {singleParcel.statusLogs[singleParcel.statusLogs.length - 1].status}
+                          {singleParcel.currentStatus}
                         </span>
                       ) : (
                         <span className="all-status-badge" style={{backgroundColor: "#D1D5DB"}}>N/A</span>
