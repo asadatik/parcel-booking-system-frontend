@@ -38,16 +38,8 @@ interface MenuItem {
 
 const menuItems = [
   { title: "Home", url: "/", role: "PUBLIC" },
-  {
-    title: "About",
-    url: "/about",
-    role: "PUBLIC",
-  },
-  {
-    title: "Contact",
-    url: "/contact",
-    role: "PUBLIC",
-  },
+  { title: "About", url: "/about", role: "PUBLIC" },
+  { title: "Contact", url: "/contact", role: "PUBLIC",},
 
 ];
 
