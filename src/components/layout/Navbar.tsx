@@ -15,8 +15,6 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import {
-
-
   authAPi,
   useLogoutMutation,
   useUserInfoQuery,
@@ -25,8 +23,6 @@ import { useAppDispatch } from "@/redux/hook";
 import { Link, NavLink } from "react-router";
 import { toast } from "sonner";
 import Loader from "../modules/shared/Loading";
-
-
 import ProfileButton from "../modules/shared/ProfileButton";
 import { ModeToggle } from "./ModeToggler";
 import { useEffect } from "react";
@@ -36,11 +32,17 @@ interface MenuItem {
   url: string;
 }
 
-const menuItems = [
-  { title: "Home", url: "/", role: "PUBLIC" },
-  { title: "About", url: "/about", role: "PUBLIC" },
-  { title: "Contact", url: "/contact", role: "PUBLIC",},
+// ✅ PUBLIC menu - সবাই দেখবে (role check নেই!)
+const publicMenuItems: MenuItem[] = [
+  { title: "Home", url: "/" },
+  { title: "About", url: "/about" },
+  { title: "Contact", url: "/contact" },
+];
 
+// ✅ Private menu - শুধু specific role দেখবে
+const privateMenuItems: MenuItem[] = [
+  // এখানে যোগ করুন: { title: "Dashboard", url: "/dashboard" },
+  // { title: "Profile", url: "/profile" },
 ];
 
 const Navbar = () => {
@@ -64,6 +66,15 @@ const Navbar = () => {
       console.log(error)
     }
   }
+
+  if (isLoading) {
+    return <Loader></Loader>
+  }
+
+  // ✅ Zero complexity logic
+  const visiblePrivateItems = user?.data?.role 
+    ? privateMenuItems // Future: filter by role
+    : [];
 
   if (isLoading) {
     return <Loader></Loader>
@@ -95,15 +106,11 @@ const Navbar = () => {
             <div className="flex items-center">
               <NavigationMenu>
                 <NavigationMenuList className="gap-2">
-                  {menuItems.map((item) => (
-                    <>
-                      {item.role.includes("PUBLIC")
-                        ? renderMenuItem(item)
-                        : item.role.includes(user?.data?.role)
-                          ? renderMenuItem(item)
-                          : ""}
-                    </>
-                  ))}
+                  {/* ✅ PUBLIC menu - সবসময় দেখাবে */}
+                  {publicMenuItems.map(renderMenuItem)}
+                  
+                  {/* ✅ Private menu - শুধু logged-in user দেখাবে */}
+                  {visiblePrivateItems.map(renderMenuItem)}
                 </NavigationMenuList>
               </NavigationMenu>
             </div>
@@ -134,7 +141,7 @@ const Navbar = () => {
                 </Button>
                 <NavLink
                   to={`${user?.data?.role === "SENDER" ? "/sender" : user?.data?.role === "RECEIVER" ? "/receiver" : "/admin"
-                    }`}
+                  }`}
                   className="group"
                 >
                   <div className="relative">
@@ -227,7 +234,11 @@ const Navbar = () => {
 
                 <div className="flex flex-col gap-6 p-4">
                   <Accordion type="single" collapsible className="flex w-full flex-col gap-4">
-                    {menuItems.map((item) => renderMobileMenuItem(item))}
+                    {/* ✅ Mobile PUBLIC menu */}
+                    {publicMenuItems.map(renderMobileMenuItem)}
+                    
+                    {/* ✅ Mobile Private menu */}
+                    {visiblePrivateItems.map(renderMobileMenuItem)}
                   </Accordion>
 
                   <div className="flex flex-col gap-3">
@@ -239,7 +250,7 @@ const Navbar = () => {
                             : user?.data?.role === "RECEIVER"
                               ? "/receiver"
                               : "/admin"
-                            }`}
+                          }`}
                         >
                           <Button
                             size="sm"
@@ -333,4 +344,3 @@ const renderMobileMenuItem = (item: MenuItem) => {
 }
 
 export default Navbar
-
