@@ -447,7 +447,7 @@ const AllUser = () => {
                         variant="secondary"
                         disabled={user.isActive === "BLOCKED"}
                         className={`cursor-pointer bg-gradient-to-r from-emerald-500 to-amber-500 
-      hover:from-red-400 hover:to-pink-400 text-white rounded-2xl transition-all duration-300 
+       text-white rounded-2xl transition-all duration-300 
       transform hover:scale-105 hover:shadow-2xl shadow-lg ${user.isActive === "BLOCKED" ? "opacity-50 cursor-not-allowed hover:scale-100 hover:shadow-none" : ""}`}
                       >
                         🚫 Block

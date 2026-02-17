@@ -32,16 +32,15 @@ interface MenuItem {
   url: string;
 }
 
-// ✅ PUBLIC menu - সবাই দেখবে (role check নেই!)
+//PUBLIC 
 const publicMenuItems: MenuItem[] = [
   { title: "Home", url: "/" },
   { title: "About", url: "/about" },
   { title: "Contact", url: "/contact" },
 ];
 
-// ✅ Private menu - শুধু specific role দেখবে
+//  Private menu 
 const privateMenuItems: MenuItem[] = [
-  // এখানে যোগ করুন: { title: "Dashboard", url: "/dashboard" },
   // { title: "Profile", url: "/profile" },
 ];
 
@@ -71,9 +70,9 @@ const Navbar = () => {
     return <Loader></Loader>
   }
 
-  // ✅ Zero complexity logic
+
   const visiblePrivateItems = user?.data?.role 
-    ? privateMenuItems // Future: filter by role
+    ? privateMenuItems 
     : [];
 
   if (isLoading) {
@@ -81,7 +80,7 @@ const Navbar = () => {
   }
 
   return (
-    <section className="  fixed top-0 left-0 right-0 z-50  py-4 bg-gradient-to-r from-emerald-100 via-cyan-100 to-orange-50 dark:from-emerald-950 dark:via-background dark:to-orange-950/50 backdrop-blur-sm border-b border-emerald-100 dark:border-emerald-800/30">
+    <section className=" sticky top-0 left-0 right-0 z-50  py-4 bg-gradient-to-r from-emerald-100 via-cyan-100 to-orange-50 dark:from-emerald-950 dark:via-background dark:to-orange-950/50 backdrop-blur-sm border-b border-emerald-100 dark:border-emerald-800/30">
       <div className="container mx-auto ">
         {/* Desktop Menu */}
         <nav className="hidden    justify-between lg:flex    items-center">
@@ -106,10 +105,10 @@ const Navbar = () => {
             <div className="flex items-center">
               <NavigationMenu>
                 <NavigationMenuList className="gap-2">
-                  {/* ✅ PUBLIC menu - সবসময় দেখাবে */}
+                 
                   {publicMenuItems.map(renderMenuItem)}
                   
-                  {/* ✅ Private menu - শুধু logged-in user দেখাবে */}
+                
                   {visiblePrivateItems.map(renderMenuItem)}
                 </NavigationMenuList>
               </NavigationMenu>
