@@ -14,7 +14,7 @@
 All user operations are protected with **JWT authentication**, validated with **Zod**, and structured using a clean, modular architecture.  '
 
 🔗 **Live Demo**: [Parcel Delivery Frontend](https://percel-frontend.vercel.app/)  
-💻 **Repository (Frontend)**: [GitHub](https://github.com/asadatik/parcel-booking-system-frontend)
+💻 **Repository (Back-End)**: [GitHub](https://github.com/asadatik/parcel-booking-system)
 
 **Credentials**: <br/>
 Sender: 
