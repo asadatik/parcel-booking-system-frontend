@@ -6,7 +6,11 @@ import { LoginForm } from "@/components/modules/Authentication/LoginForm";
 export default function Login() {
   return (
     <div className="grid min-h-svh lg:grid-cols-2">
+
+  {/* icon o form */}
       <div className="flex flex-col gap-4 p-6 md:p-10">
+
+    {/*  */}
         <div className="flex justify-center gap-2 md:justify-start">
           <Link to="/" className="flex items-center ">
                <div className="flex items-center gap-3 group">
@@ -26,12 +30,18 @@ export default function Login() {
                </div>
           </Link>
         </div>
-        <div className="flex flex-1 items-center justify-center">
-          <div className="w-full max-w-xs">
+
+
+     {/* form */}
+        <div className="flex flex-1  items-center justify-center">
+          <div className="w-full max-w-md md:max-w-lg ">
             <LoginForm />
           </div>
         </div>
+        
       </div>
+
+  {/* image */}
       <div className="relative hidden bg-muted lg:block">
         <img
           src="https://i.ibb.co.com/6J4cXZTc/pexels-mizunokozuki-13443801.jpg"

@@ -9,14 +9,22 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button"; // ADD: Import shadcn Button for demo buttons
 import { cn } from "@/lib/utils";
+import { motion } from "framer-motion"; // ADD: For animations
 import { useLoginMutation } from "@/redux/features/auth/auth.api";
 import { type FieldValues, type SubmitHandler, useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router";
 import { toast } from "sonner";
-            import { useState } from "react";
-import { Eye, EyeOff } from "lucide-react"; // icons
+import { useState } from "react";
+import { Eye, EyeOff, User, Mail, Shield } from "lucide-react"; 
 
+// Demo credentials 
+const DEMO_CREDENTIALS = {
+  admin: { email: "admin123@.com", password: "Pa$$w0rd!" },
+  sender: { email: "asadatik709@gmail.com", password: "Pa$$w0rd!" },
+  receiver: { email: "receiver@gmail.com", password: "Pa$$w0rd!" },
+} as const;
 
 
 
@@ -25,58 +33,109 @@ export function LoginForm({
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) {
   const navigate = useNavigate();
-  const form = useForm();
+  const form = useForm(); 
   const [login] = useLoginMutation();
- const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
+
+  const fillDemoCredentials = (role: keyof typeof DEMO_CREDENTIALS) => {
+    const creds = DEMO_CREDENTIALS[role];
+    form.setValue("email", creds.email);
+    form.setValue("password", creds.password);
+    toast.message(`Filled ${role} demo credentials!`);
+  };
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
       const res = await login(data).unwrap();
 
-    
       if (res.success) {
         toast.success("Logged in successfully");
         navigate("/");
       } 
       
       console.log(res);
-
-
-    } 
-    
-    catch (err) {
-  if (
-    typeof err === "object" &&
-    err !== null &&
-    "data" in err &&
-    typeof (err as any).data === "object" &&
-    (err as any).data !== null &&
-    "message" in (err as any).data
-  ) {
-    const message = (err as any).data.message;
-    console.log(message);
-    toast.warning("something is going wrong");
-    if (message === "Invalid Password") {
-      toast.error("Invalid credentials");
-    }
-    if (message === "User is not verified") {
-      toast.error("Your account is not verified");
-      navigate("/verify", { state: data.email });
-    }
-  } else {
-    toast.warning("Something went wrong");
-    console.log(err);
-  }
-
-     //  
-
+    } catch (err) {
+      if (
+        typeof err === "object" &&
+        err !== null &&
+        "data" in err &&
+        typeof (err as any).data === "object" &&
+        (err as any).data !== null &&
+        "message" in (err as any).data
+      ) {
+        const message = (err as any).data.message;
+        console.log(message);
+        toast.warning("something is going wrong");
+        if (message === "Invalid Password") {
+          toast.error("Invalid credentials");
+        }
+        if (message === "User is not verified") {
+          toast.error("Your account is not verified");
+          navigate("/verify", { state: data.email });
+        }
+      } else {
+        toast.warning("Something went wrong");
+        console.log(err);
+      }
     }
   };
 
-
-
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
+ {/*  */}
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="flex flex-wrap gap-3 justify-center mb-6 p-4 bg-gradient-to-r from-slate-50/50 to-blue-50/50 rounded-2xl backdrop-blur-sm border border-slate-200/50 shadow-xl"
+      >
+       
+        <motion.div
+          className="group"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.98 }}
+        >
+          <Button
+            type="button"
+            onClick={() => fillDemoCredentials("admin")}
+            className="gap-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white shadow-lg hover:shadow-purple-500/25 transition-all duration-300"
+          >
+            <Shield className="w-4 h-4" />
+            Admin Demo
+          </Button>
+        </motion.div>
+
+        <motion.div
+          className="group"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.98 }}
+        >
+          <Button
+            type="button"
+            onClick={() => fillDemoCredentials("sender")}
+            className="gap-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white shadow-lg hover:shadow-emerald-500/25 transition-all duration-300"
+          >
+            <Mail className="w-4 h-4" />
+            Sender Demo
+          </Button>
+        </motion.div>
+
+        <motion.div
+          className="group"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.98 }}
+        >
+          <Button
+            type="button"
+            onClick={() => fillDemoCredentials("receiver")}
+            className="gap-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white shadow-lg hover:shadow-orange-500/25 transition-all duration-300"
+          >
+            <User className="w-4 h-4" />
+            Receiver Demo
+          </Button>
+        </motion.div>
+      </motion.div>
+
       <div className="flex flex-col items-center gap-2 text-center">
         <h1 className="text-2xl font-bold">Login to your account</h1>
         <p className="text-balance text-sm text-muted-foreground">
@@ -104,43 +163,40 @@ export function LoginForm({
               )}
             />
 
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Password</FormLabel>
+                  <div className="relative">
+                    <FormControl>
+                      <Input
+                        type={showPassword ? "text" : "password"}
+                        placeholder="********"
+                        {...field}
+                        value={field.value || ""}
+                        className="pr-10"
+                      />
+                    </FormControl>
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 hover:text-gray-700"
+                    >
+                      {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                    </button>
+                  </div>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-<FormField
-  control={form.control}
-  name="password"
-  render={({ field }) => <FormItem>
-    <FormLabel>Password</FormLabel>
-    <div className="relative">
-      <FormControl>
-        <Input
-          type={showPassword ? "text" : "password"}
-          placeholder="********"
-          {...field}
-          value={field.value || ""}
-          className="pr-10" // space for the icon
-        />
-      </FormControl>
-
-      {/* Toggle Button */}
-      <button
-        type="button"
-        onClick={() => setShowPassword(!showPassword)}
-        className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 hover:text-gray-700"
-      >
-        {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-      </button>
-    </div>
-    <FormMessage />
-  </FormItem>}
-/>
-
-           
-              <button type="submit" className="w-full">
-                <div className="bg-gradient-to-r from-emerald-600 to-orange-400 hover:from-emerald-700 hover:to-orange-500  text-xl text-white font-semibold py-2 px-4 rounded-lg shadow-lg transition-all duration-300 hover:shadow-emerald-200 dark:hover:shadow-emerald-900/50">
-                  Login
-                </div>
-              </button>
-         
+            <button type="submit" className="w-full">
+              <div className="bg-gradient-to-r from-emerald-600 to-orange-400 hover:from-emerald-700 hover:to-orange-500 text-xl text-white font-semibold py-2 px-4 rounded-lg shadow-lg transition-all duration-300 hover:shadow-emerald-200 dark:hover:shadow-emerald-900/50">
+                Login
+              </div>
+            </button>
           </form>
         </Form>
       </div>
