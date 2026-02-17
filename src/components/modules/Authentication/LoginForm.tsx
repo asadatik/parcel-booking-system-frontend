@@ -21,9 +21,9 @@ import { Eye, EyeOff, User, Mail, Shield } from "lucide-react";
 
 // Demo credentials 
 const DEMO_CREDENTIALS = {
-  admin: { email: "admin123@.com", password: "Pa$$w0rd!" },
+  admin: { email: "admin123@gmail.com", password: "Pa$$w0rd!" },
   sender: { email: "asadatik709@gmail.com", password: "Pa$$w0rd!" },
-  receiver: { email: "receiver@gmail.com", password: "Pa$$w0rd!" },
+  receiver: { email: "reciver@gmail.com", password: "Pa$$w0rd!" },
 } as const;
 
 
@@ -42,7 +42,7 @@ export function LoginForm({
     const creds = DEMO_CREDENTIALS[role];
     form.setValue("email", creds.email);
     form.setValue("password", creds.password);
-    toast.message(`Filled ${role} demo credentials!`);
+    toast.success(`${role.charAt(0).toUpperCase() + role.slice(1)} credentials loaded!`);
   };
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
@@ -84,57 +84,63 @@ export function LoginForm({
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
  {/*  */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="flex flex-wrap gap-3 justify-center mb-6 p-4 bg-gradient-to-r from-slate-50/50 to-blue-50/50 rounded-2xl backdrop-blur-sm border border-slate-200/50 shadow-xl"
-      >
-       
-        <motion.div
-          className="group"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.98 }}
-        >
-          <Button
-            type="button"
-            onClick={() => fillDemoCredentials("admin")}
-            className="gap-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white shadow-lg hover:shadow-purple-500/25 transition-all duration-300"
-          >
-            <Shield className="w-4 h-4" />
-            Admin Demo
-          </Button>
-        </motion.div>
+    <motion.div
+  initial={{ opacity: 0, y: -20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.6 }}
+  className="flex flex-wrap gap-3 justify-center mb-8 p-6 bg-gradient-to-br from-white/20 to-slate-100/40 backdrop-blur-xl rounded-3xl border border-white/30 shadow-2xl hover:shadow-3xl transition-all duration-500"
+>
+  {/* ADMIN - Purple/Shield */}
+  <motion.div
+    className="group"
+    whileHover={{ scale: 1.05, y: -2 }}
+    whileTap={{ scale: 0.98 }}
+    transition={{ type: "spring", stiffness: 400, damping: 17 }}
+  >
+    <Button
+      type="button"
+      onClick={() => fillDemoCredentials("admin")}
+      className="gap-2 bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 hover:from-emerald-600 hover:via-teal-600 hover:to-emerald-700 text-white shadow-xl hover:shadow-purple-500/50 border-transparent hover:border-emerald-400/50 backdrop-blur-sm font-medium px-6 py-3 rounded-2xl transition-all duration-500 group-hover:bg-opacity-100"
+    >
+      <Shield className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
+      Admin Demo
+    </Button>
+  </motion.div>
 
-        <motion.div
-          className="group"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.98 }}
-        >
-          <Button
-            type="button"
-            onClick={() => fillDemoCredentials("sender")}
-            className="gap-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white shadow-lg hover:shadow-emerald-500/25 transition-all duration-300"
-          >
-            <Mail className="w-4 h-4" />
-            Sender Demo
-          </Button>
-        </motion.div>
+  {/* SENDER - Emerald/Mail */}
+  <motion.div
+    className="group"
+    whileHover={{ scale: 1.05, y: -2 }}
+    whileTap={{ scale: 0.98 }}
+    transition={{ type: "spring", stiffness: 400, damping: 17 }}
+  >
+    <Button
+      type="button"
+      onClick={() => fillDemoCredentials("sender")}
+      className="gap-2 bg-gradient-to-r from-orange-500 via-amber-500 to-orange-400 hover:from-orange-600 hover:via-amber-600 hover:to-orange-700 text-white shadow-xl hover:shadow-emerald-500/50 border-transparent hover:border-emerald-400/50 backdrop-blur-sm font-medium px-6 py-3 rounded-2xl transition-all duration-500 group-hover:bg-opacity-100"
+    >
+      <Mail className="w-5 h-5 group-hover:-rotate-12 transition-transform duration-300" />
+      Sender Demo
+    </Button>
+  </motion.div>
 
-        <motion.div
-          className="group"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.98 }}
-        >
-          <Button
-            type="button"
-            onClick={() => fillDemoCredentials("receiver")}
-            className="gap-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white shadow-lg hover:shadow-orange-500/25 transition-all duration-300"
-          >
-            <User className="w-4 h-4" />
-            Receiver Demo
-          </Button>
-        </motion.div>
-      </motion.div>
+  {/* RECEIVER - Orange/User (Fixed function call) */}
+  <motion.div
+    className="group"
+    whileHover={{ scale: 1.05, y: -2 }}
+    whileTap={{ scale: 0.98 }}
+    transition={{ type: "spring", stiffness: 400, damping: 17 }}
+  >
+    <Button
+      type="button"
+      onClick={() => fillDemoCredentials("receiver")} 
+      className="gap-2 bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 hover:from-emerald-600 hover:via-teal-600 hover:to-emerald-700 text-white shadow-xl hover:shadow-orange-500/50 border-transparent hover:border-orange-400/50 backdrop-blur-sm font-medium px-6 py-3 rounded-2xl transition-all duration-500 group-hover:bg-opacity-100"
+    >
+      <User className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
+      Receiver Demo
+    </Button>
+  </motion.div>
+</motion.div>
 
       <div className="flex flex-col items-center gap-2 text-center">
         <h1 className="text-2xl font-bold">Login to your account</h1>
