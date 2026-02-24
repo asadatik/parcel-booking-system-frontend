@@ -9,7 +9,6 @@ const Home = () => {
     return (
         <div>
              <HeroSection></HeroSection>
-                {/* Other sections like How It Works, Testimonials, etc. can be added here */}
                 <HowWork></HowWork>
 
                 <Testimonial></Testimonial>

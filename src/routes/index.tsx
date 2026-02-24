@@ -14,12 +14,14 @@ import { senderSidebarItems } from "./senderaSideBar";
 import { adminSidebarItems } from "./adminSidebarItems";
 import Contact from "@/pages/public/Contact";
 import { receiverSidebarItems } from "./receiverSideBarItems";
+import NotFound from "@/pages/NotFound";
 
 
 export const router = createBrowserRouter([
   {
     Component: App,
     path: "/",
+     errorElement: <NotFound />,
     children: [
             {
         index: true,

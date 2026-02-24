@@ -1,10 +1,8 @@
 import React from 'react';
 import { Package, Home, ArrowLeft, MapPin } from 'lucide-react';
+import { Link } from 'react-router';
 
 const NotFound: React.FC = () => {
-  const handleGoHome = () => {
-    window.location.href = '/';
-  };
 
   const handleGoBack = () => {
     window.history.back();
@@ -303,36 +301,22 @@ const NotFound: React.FC = () => {
                 Oops! It seems like this package has been misplaced. The page you're looking for doesn't exist or has been moved to a different location.
               </p>
 
-              {/* Action Buttons */}
+      
               <div className="button-group">
-                <button className="btn-primary" onClick={handleGoHome}>
+              <Link to="/" > 
+                  <button className="btn-primary" >
                   <Home size={20} />
                   <span>Go to Home</span>
                 </button>
+
+               </Link>
                 <button className="btn-secondary" onClick={handleGoBack}>
                   <ArrowLeft size={20} />
                   <span>Go Back</span>
                 </button>
               </div>
 
-              {/* Suggestions */}
-              <div className="suggestions">
-                <h3 className="suggestions-title">🔍 Quick Links:</h3>
-                <div className="suggestion-list">
-                  <div className="suggestion-item" onClick={() => window.location.href = '/'}>
-                    🏠 Dashboard
-                  </div>
-                  <div className="suggestion-item" onClick={() => window.location.href = '/track'}>
-                    📦 Track Parcel
-                  </div>
-                  <div className="suggestion-item" onClick={() => window.location.href = '/contact'}>
-                    📞 Contact Support
-                  </div>
-                  <div className="suggestion-item" onClick={() => window.location.href = '/about'}>
-                    ℹ️ About Us
-                  </div>
-                </div>
-              </div>
+          
             </div>
           </div>
         </div>

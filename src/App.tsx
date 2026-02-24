@@ -10,7 +10,7 @@ function App() {
   return (
     <>
       <div> 
-         <CommonLayout>
+      <CommonLayout>
       <Outlet />
     </CommonLayout>
       </div>
