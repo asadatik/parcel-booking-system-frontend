@@ -52,6 +52,6 @@ export const {
   useSendOtpMutation,
   useVerifyOtpMutation,
   useUserInfoQuery,
-  useLogoutMutation,
+useLogoutMutation,
   useLoginMutation,
 } = authAPi;
