@@ -3,21 +3,46 @@
 import { Button } from "@/components/ui/button"
 import { motion } from "framer-motion"
 import { ArrowRight } from "lucide-react";
-
-
+import { useNavigate } from "react-router";
+import { useUserInfoQuery } from "@/redux/features/auth/auth.api";
 
 
 
 const CTA = () => {
+
+  const navigate = useNavigate();
+  const { data: user } = useUserInfoQuery(undefined);
+
+
+  //
+  const StartShipping = () => {
+    if (!user?.data) {
+      navigate("/login");
+      return;
+    }
+    const role = user.data.role;
+
+    switch (role) {
+      case "ADMIN":
+        navigate("/admin/my-profile");
+        break;
+      case "SENDER":
+        navigate("/sender/my-profile");
+        break;
+      case "RECEIVER":
+        navigate("/receiver/my-profile");
+        break;
+      default:
+        navigate("/");
+    }
+  };
+
 
   const fadeInUp = {
     initial: { opacity: 0, y: 60 },
     animate: { opacity: 1, y: 0 },
     transition: { duration: 0.6 },
   }
-
-
-
 
     return (
         <div>
@@ -40,7 +65,9 @@ const CTA = () => {
               Join thousands of businesses and individuals who trust us for their delivery needs
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Button
+             
+           <Button
+                onClick={StartShipping}
                 size="lg"
                 className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 px-8 py-6 text-lg font-semibold"
                 style={{ color: "#ffffff" }}
@@ -48,6 +75,7 @@ const CTA = () => {
                 Start Shipping Now
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
+
               <Button
                 size="lg"
                 variant="outline"
