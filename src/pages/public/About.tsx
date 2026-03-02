@@ -1,22 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  Package, 
-  Truck, 
-  Shield, 
-  Clock, 
-  Globe, 
-  Users, 
+import { Package, Truck, Shield, Clock, Globe, Users, Heart, Target, Zap, CheckCircle, Star, Mail, Linkedin, Twitter } from 'lucide-react';
 
-  Heart,
-  Target,
-  Zap,
-  CheckCircle,
-  Star,
- 
-  Mail,
-  Linkedin,
-  Twitter
-} from 'lucide-react';
+import { useNavigate } from "react-router";
+import { useUserInfoQuery } from "@/redux/features/auth/auth.api";
 
 interface TeamMember {
   id: number;
@@ -47,10 +33,16 @@ interface Stat {
   icon: React.ElementType;
 }
 
+
+
+
 const About: React.FC = () => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [activeService, setActiveService] = useState<number>(0);
   const [hoveredMember, setHoveredMember] = useState<number | null>(null);
+  const navigate = useNavigate();
+  const { data: user } = useUserInfoQuery(undefined);
+
 
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 100);
@@ -169,6 +161,31 @@ const About: React.FC = () => {
     }
   ];
 
+  // handleGetStarted
+  const handleGetStarted = () => {
+    if (!user?.data) {
+      navigate("/login");
+      return;
+    }
+    const role = user.data.role;
+
+    switch (role) {
+      case "ADMIN":
+        navigate("/admin/my-profile");
+        break;
+      case "SENDER":
+        navigate("/sender/my-profile");
+        break;
+      case "RECEIVER":
+        navigate("/receiver/my-profile");
+        break;
+      default:
+        navigate("/");
+    }
+  };
+
+
+
   return (
     <div className="min-h-screen  mt-10   bg-gradient-to-br from-emerald-50 via-emerald-100 to-teal-100 relative overflow-hidden">
       <style>{`
@@ -232,13 +249,13 @@ const About: React.FC = () => {
       {/* Floating Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 left-10 w-40 h-40 bg-gradient-to-r from-emerald-300 to-teal-300 rounded-full opacity-20 float"></div>
-        <div className="absolute top-60 right-20 w-32 h-32 bg-gradient-to-r from-orange-300 to-pink-300 rounded-full opacity-20 float" style={{animationDelay: '2s'}}></div>
-        <div className="absolute bottom-40 left-32 w-48 h-48 bg-gradient-to-r from-emerald-200 to-cyan-200 rounded-full opacity-15 float" style={{animationDelay: '4s'}}></div>
-        <div className="absolute top-32 left-1/2 w-24 h-24 bg-gradient-to-r from-yellow-300 to-orange-300 rounded-full opacity-20 float" style={{animationDelay: '1s'}}></div>
+        <div className="absolute top-60 right-20 w-32 h-32 bg-gradient-to-r from-orange-300 to-pink-300 rounded-full opacity-20 float" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute bottom-40 left-32 w-48 h-48 bg-gradient-to-r from-emerald-200 to-cyan-200 rounded-full opacity-15 float" style={{ animationDelay: '4s' }}></div>
+        <div className="absolute top-32 left-1/2 w-24 h-24 bg-gradient-to-r from-yellow-300 to-orange-300 rounded-full opacity-20 float" style={{ animationDelay: '1s' }}></div>
       </div>
 
       <div className={`max-w-7xl mx-auto py-16 px-6 relative z-10 transition-all duration-1000 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
-        
+
         {/* Hero Section */}
         <div className="text-center mb-24 fade-in-up">
           <div className="flex items-center justify-center gap-4 mb-8">
@@ -250,15 +267,15 @@ const About: React.FC = () => {
             </h1>
           </div>
           <p className="text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed mb-8">
-            Revolutionizing parcel delivery with cutting-edge technology, unmatched reliability, 
+            Revolutionizing parcel delivery with cutting-edge technology, unmatched reliability,
             and a passion for connecting people across the globe.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             {['Trusted', 'Innovative', 'Global', 'Secure'].map((tag, index) => (
-              <span 
+              <span
                 key={index}
                 className="px-6 py-3 bg-gradient-to-r from-emerald-100 to-teal-100 text-emerald-700 rounded-full font-semibold text-lg border border-emerald-200 hover:scale-105 transition-transform duration-300"
-                style={{animationDelay: `${index * 0.1}s`}}
+                style={{ animationDelay: `${index * 0.1}s` }}
               >
                 {tag}
               </span>
@@ -269,10 +286,10 @@ const About: React.FC = () => {
         {/* Stats Section */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 mb-24">
           {stats.map((stat, index) => (
-            <div 
+            <div
               key={stat.id}
               className="glass rounded-3xl p-8 text-center hover:scale-105 transition-all duration-300 scale-in"
-              style={{animationDelay: `${index * 0.1}s`}}
+              style={{ animationDelay: `${index * 0.1}s` }}
             >
               <div className="w-16 h-16 bg-gradient-to-r from-orange-400 to-orange-600 rounded-2xl flex items-center justify-center mx-auto mb-4 pulse">
                 <stat.icon className="w-8 h-8 text-white" />
@@ -293,11 +310,11 @@ const About: React.FC = () => {
                   Our Mission
                 </h2>
                 <p className="text-xl text-gray-600 leading-relaxed mb-6">
-                  To create a world where distance doesn't matter. We're building the future of logistics 
+                  To create a world where distance doesn't matter. We're building the future of logistics
                   through innovative technology, sustainable practices, and unwavering commitment to excellence.
                 </p>
                 <p className="text-lg text-gray-600 leading-relaxed mb-8">
-                  Every package tells a story – a gift from a loved one, a business opportunity, 
+                  Every package tells a story – a gift from a loved one, a business opportunity,
                   a connection across continents. We're honored to be part of these moments.
                 </p>
                 <div className="flex flex-wrap gap-4">
@@ -324,10 +341,10 @@ const About: React.FC = () => {
           <h2 className="text-5xl font-bold text-center text-gray-800 mb-16 fade-in-up">Our Values</h2>
           <div className="grid lg:grid-cols-2 xl:grid-cols-4 gap-8">
             {values.map((value, index) => (
-              <div 
+              <div
                 key={index}
                 className="glass rounded-3xl p-8 text-center hover:scale-105 hover:-translate-y-2 transition-all duration-300 scale-in group"
-                style={{animationDelay: `${index * 0.1}s`}}
+                style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <div className={`w-20 h-20 bg-gradient-to-r ${value.color} rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300`}>
                   <value.icon className="w-10 h-10 text-white" />
@@ -350,16 +367,14 @@ const About: React.FC = () => {
                   <div
                     key={service.id}
                     onClick={() => setActiveService(index)}
-                    className={`p-6 rounded-2xl cursor-pointer transition-all duration-300 ${
-                      activeService === index
+                    className={`p-6 rounded-2xl cursor-pointer transition-all duration-300 ${activeService === index
                         ? 'bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-2xl scale-105'
                         : 'bg-white/50 hover:bg-white/70 text-gray-800 hover:scale-102'
-                    }`}
+                      }`}
                   >
                     <div className="flex items-center gap-4">
-                      <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${
-                        activeService === index ? 'bg-white/20' : `bg-gradient-to-r ${service.color}`
-                      }`}>
+                      <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${activeService === index ? 'bg-white/20' : `bg-gradient-to-r ${service.color}`
+                        }`}>
                         <service.icon className={`w-6 h-6 ${activeService === index ? 'text-white' : 'text-white'}`} />
                       </div>
                       <div>
@@ -381,7 +396,7 @@ const About: React.FC = () => {
                   </div>
                   <h3 className="text-3xl font-bold text-gray-800 mb-4">{services[activeService].title}</h3>
                   <p className="text-lg text-gray-600 mb-8 leading-relaxed">{services[activeService].description}</p>
-                  
+
                   <h4 className="text-xl font-bold text-gray-800 mb-4">Key Features:</h4>
                   <div className="space-y-3">
                     {services[activeService].features.map((feature, index) => (
@@ -404,10 +419,10 @@ const About: React.FC = () => {
           <h2 className="text-5xl font-bold text-center text-gray-800 mb-16 fade-in-up">Meet Our Team</h2>
           <div className="grid lg:grid-cols-2 xl:grid-cols-4 gap-8">
             {teamMembers.map((member, index) => (
-              <div 
+              <div
                 key={member.id}
                 className="glass rounded-3xl p-6 text-center hover:scale-105 hover:-translate-y-4 transition-all duration-500 scale-in group cursor-pointer"
-                style={{animationDelay: `${index * 0.1}s`}}
+                style={{ animationDelay: `${index * 0.1}s` }}
                 onMouseEnter={() => setHoveredMember(member.id)}
                 onMouseLeave={() => setHoveredMember(null)}
               >
@@ -421,10 +436,10 @@ const About: React.FC = () => {
                     <Star className="w-4 h-4 text-white" />
                   </div>
                 </div>
-                
+
                 <h3 className="text-2xl font-bold text-gray-800 mb-2">{member.name}</h3>
                 <p className="text-emerald-600 font-semibold mb-4">{member.position}</p>
-                
+
                 <div className={`transition-all duration-300 ${hoveredMember === member.id ? 'opacity-100 max-h-40' : 'opacity-70 max-h-20 overflow-hidden'}`}>
                   <p className="text-gray-600 text-sm leading-relaxed mb-4">{member.bio}</p>
                 </div>
@@ -456,11 +471,14 @@ const About: React.FC = () => {
           <div className="glass rounded-3xl p-12">
             <h2 className="text-5xl font-bold text-gray-800 mb-6">Ready to Experience Excellence?</h2>
             <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
-              Join thousands of satisfied customers who trust ParcelEx for their delivery needs. 
+              Join thousands of satisfied customers who trust ParcelEx for their delivery needs.
               Let's make your next shipment extraordinary.
             </p>
             <div className="flex flex-wrap justify-center gap-6">
-              <button className="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white px-10 py-5 rounded-2xl font-bold text-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl shadow-lg">
+              <button
+                onClick={handleGetStarted}
+                className="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white px-10 py-5 rounded-2xl font-bold text-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl shadow-lg"
+              >
                 Get Started Today
               </button>
               <button className="bg-gradient-to-r from-orange-400 to-orange-600 hover:from-orange-500 hover:to-orange-700 text-white px-10 py-5 rounded-2xl font-bold text-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl shadow-lg">
