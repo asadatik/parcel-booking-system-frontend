@@ -1,24 +1,9 @@
 import { Menu } from "lucide-react";
-
 import { Accordion } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
-import {
-  NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuList,
-} from "@/components/ui/navigation-menu";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-import {
-  authAPi,
-  useLogoutMutation,
-  useUserInfoQuery,
-} from "@/redux/features/auth/auth.api";
+import { NavigationMenu, NavigationMenuItem, NavigationMenuList, } from "@/components/ui/navigation-menu";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, } from "@/components/ui/sheet";
+import { authAPi, useLogoutMutation, useUserInfoQuery, } from "@/redux/features/auth/auth.api";
 import { useAppDispatch } from "@/redux/hook";
 import { Link, NavLink } from "react-router";
 import { toast } from "sonner";
@@ -37,24 +22,35 @@ const publicMenuItems: MenuItem[] = [
   { title: "Home", url: "/" },
   { title: "About", url: "/about" },
   { title: "Contact", url: "/contact" },
+
 ];
 
-//  Private menu 
-const privateMenuItems: MenuItem[] = [
-  // { title: "Profile", url: "/profile" },
-];
 
 const Navbar = () => {
   const { data: user, isLoading } = useUserInfoQuery(undefined)
   const [logout] = useLogoutMutation(undefined)
   const dispatch = useAppDispatch()
 
-  useEffect(() => {
-    if (user?.data) {
-      console.log("user data from navbar", user.data)
-    }
-  }, [user])
+  const userData = user?.data
 
+  // 
+  const dashboardUrl = userData?.email
+    ? userData?.role === "SENDER"
+      ? "/sender"
+      : userData?.role === "RECEIVER"
+        ? "/receiver"
+        : "/admin"
+    : "/login";
+
+  const privateMenuItems: MenuItem[] = [
+    { title: "Dashboard", url: dashboardUrl },
+  ];
+
+  useEffect(() => {
+    if (userData) {
+      console.log("User:", userData)
+    }
+  }, [userData])
   const handleLogout = async () => {
     try {
       await logout(undefined)
@@ -70,15 +66,6 @@ const Navbar = () => {
     return <Loader></Loader>
   }
 
-
-  const visiblePrivateItems = user?.data?.role 
-    ? privateMenuItems 
-    : [];
-
-  if (isLoading) {
-    return <Loader></Loader>
-  }
-
   return (
     <section className=" sticky top-0 left-0 right-0 z-50  py-4 bg-gradient-to-r from-emerald-100 via-cyan-100 to-orange-50 dark:from-emerald-950 dark:via-background dark:to-orange-950/50 backdrop-blur-sm border-b border-emerald-100 dark:border-emerald-800/30">
       <div className="container mx-auto ">
@@ -86,40 +73,40 @@ const Navbar = () => {
         <nav className="hidden    justify-between lg:flex    items-center">
           <div className="flex mx-4  items-center gap-8">
             <NavLink to="/">
-            <div className="flex items-center gap-3 group">
-              <div className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-emerald-200 dark:group-hover:shadow-emerald-900/50 transition-all duration-300 group-hover:scale-105">
-                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
-                  />
-                </svg>
+              <div className="flex items-center gap-3 group">
+                <div className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-emerald-200 dark:group-hover:shadow-emerald-900/50 transition-all duration-300 group-hover:scale-105">
+                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
+                    />
+                  </svg>
+                </div>
+                <span className="text-2xl font-bold bg-gradient-to-r from-emerald-600 to-orange-500  bg-clip-text text-transparent">
+                  ParcelPro
+                </span>
               </div>
-              <span className="text-2xl font-bold bg-gradient-to-r from-emerald-600 to-orange-500  bg-clip-text text-transparent">
-                ParcelPro
-              </span>
-            </div>
             </NavLink>
             <div className="flex items-center">
               <NavigationMenu>
                 <NavigationMenuList className="gap-2">
-                 
+
                   {publicMenuItems.map(renderMenuItem)}
-                  
-                
-                  {visiblePrivateItems.map(renderMenuItem)}
+                  {privateMenuItems.map(renderMenuItem)}
                 </NavigationMenuList>
               </NavigationMenu>
             </div>
           </div>
-
+          {/* right side */}
           <div className="flex items-center gap-3">
+
+
             <div className="p-1 rounded-lg bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border border-emerald-100 dark:border-emerald-800/30">
               <ModeToggle />
             </div>
-
+            {/* User Actions */}
             {user?.data?.email ? (
               <div className="flex items-center gap-3">
                 <Button
@@ -139,8 +126,7 @@ const Navbar = () => {
                   Logout
                 </Button>
                 <NavLink
-                  to={`${user?.data?.role === "SENDER" ? "/sender" : user?.data?.role === "RECEIVER" ? "/receiver" : "/admin"
-                  }`}
+                  to={`${user?.data?.role === "SENDER" ? "/sender" : user?.data?.role === "RECEIVER" ? "/receiver" : "/admin"}`}
                   className="group"
                 >
                   <div className="relative">
@@ -149,27 +135,29 @@ const Navbar = () => {
                   </div>
                 </NavLink>
               </div>
-            ) : (
-              <div className="flex gap-2">
-                <NavLink to="/login">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="border-emerald-200 hover:bg-emerald-50 hover:border-emerald-300 dark:border-emerald-800 dark:hover:bg-emerald-950/50 transition-all duration-200 hover:scale-105 bg-transparent"
-                  >
-                    Login
-                  </Button>
-                </NavLink>
-                <NavLink to="/register">
-                  <Button
-                    size="sm"
-                    className="bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white shadow-lg hover:shadow-emerald-200 dark:hover:shadow-emerald-900/50 transition-all duration-200 hover:scale-105 border-0"
-                  >
-                    Register
-                  </Button>
-                </NavLink>
-              </div>
-            )}
+            )
+              :
+              (
+                <div className="flex gap-2">
+                  <NavLink to="/login">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="border-emerald-200 hover:bg-emerald-50 hover:border-emerald-300 dark:border-emerald-800 dark:hover:bg-emerald-950/50 transition-all duration-200 hover:scale-105 bg-transparent"
+                    >
+                      Login
+                    </Button>
+                  </NavLink>
+                  <NavLink to="/register">
+                    <Button
+                      size="sm"
+                      className="bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white shadow-lg hover:shadow-emerald-200 dark:hover:shadow-emerald-900/50 transition-all duration-200 hover:scale-105 border-0"
+                    >
+                      Register
+                    </Button>
+                  </NavLink>
+                </div>
+              )}
           </div>
         </nav>
 
@@ -233,11 +221,9 @@ const Navbar = () => {
 
                 <div className="flex flex-col gap-6 p-4">
                   <Accordion type="single" collapsible className="flex w-full flex-col gap-4">
-                    {/* ✅ Mobile PUBLIC menu */}
+                    {/**/}
                     {publicMenuItems.map(renderMobileMenuItem)}
-                    
-                    {/* ✅ Mobile Private menu */}
-                    {visiblePrivateItems.map(renderMobileMenuItem)}
+
                   </Accordion>
 
                   <div className="flex flex-col gap-3">
@@ -249,7 +235,7 @@ const Navbar = () => {
                             : user?.data?.role === "RECEIVER"
                               ? "/receiver"
                               : "/admin"
-                          }`}
+                            }`}
                         >
                           <Button
                             size="sm"
