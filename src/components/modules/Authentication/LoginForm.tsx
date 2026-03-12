@@ -1,17 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
+import {Form,FormControl,FormField,FormItem,FormLabel,FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button"; // ADD: Import shadcn Button for demo buttons
+import { Button } from "@/components/ui/button"; 
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion"; // ADD: For animations
+import { motion } from "framer-motion"; 
 import { useLoginMutation } from "@/redux/features/auth/auth.api";
 import { type FieldValues, type SubmitHandler, useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router";
@@ -45,6 +38,7 @@ export function LoginForm({
     toast.success(`${role.charAt(0).toUpperCase() + role.slice(1)} credentials loaded!`);
   };
 
+// demo form submission
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
       const res = await login(data).unwrap();
@@ -83,14 +77,14 @@ export function LoginForm({
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
- {/*  */}
+ {/* Demo login  */}
     <motion.div
   initial={{ opacity: 0, y: -20 }}
   animate={{ opacity: 1, y: 0 }}
   transition={{ duration: 0.6 }}
   className="flex flex-wrap gap-3 justify-center mb-8 p-6 bg-gradient-to-br from-white/20 to-slate-100/40 backdrop-blur-xl rounded-3xl border border-white/30 shadow-2xl hover:shadow-3xl transition-all duration-500"
 >
-  {/* ADMIN - Purple/Shield */}
+  {/* ADMIN*/}
   <motion.div
     className="group"
     whileHover={{ scale: 1.05, y: -2 }}
@@ -106,8 +100,7 @@ export function LoginForm({
       Admin Demo
     </Button>
   </motion.div>
-
-  {/* SENDER - Emerald/Mail */}
+{/* SENDER  */}
   <motion.div
     className="group"
     whileHover={{ scale: 1.05, y: -2 }}
@@ -124,7 +117,7 @@ export function LoginForm({
     </Button>
   </motion.div>
 
-  {/* RECEIVER - Orange/User (Fixed function call) */}
+{/* RECEIVER */}
   <motion.div
     className="group"
     whileHover={{ scale: 1.05, y: -2 }}
@@ -140,8 +133,9 @@ export function LoginForm({
       Receiver Demo
     </Button>
   </motion.div>
-</motion.div>
+    </motion.div>
 
+{/* Login Form */}
       <div className="flex flex-col items-center gap-2 text-center">
         <h1 className="text-2xl font-bold">Login to your account</h1>
         <p className="text-balance text-sm text-muted-foreground">
