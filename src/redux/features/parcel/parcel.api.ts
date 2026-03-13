@@ -17,23 +17,23 @@ export const parcelAPi = baseApi.injectEndpoints({
       query: ({ parcelId }) => ({
         url: `/parcel/${parcelId}/cancel`,
         method: "PATCH",
-    
+
       }),
       invalidatesTags: ["PARCEL", "PARCELS"],
     })
-    
+
     ,
 
 
-// Update parcel status by admin
-updateParcelStatus: builder.mutation({
-  query: ({ parcelId, data }) => ({
-    url: `/parcel/${parcelId}/status`, // ✅ exact backend route
-    method: "PATCH",
-    data: data,
-  }),
-  invalidatesTags: ["PARCEL", "PARCELS"],
-}),
+    // Update parcel status by admin
+    updateParcelStatus: builder.mutation({
+      query: ({ parcelId, data }) => ({
+        url: `/parcel/${parcelId}/status`,
+        method: "PATCH",
+        data: data,
+      }),
+      invalidatesTags: ["PARCEL", "PARCELS"],
+    }),
 
 
 
@@ -59,19 +59,19 @@ updateParcelStatus: builder.mutation({
     }),
 
     // Get delivery history for receiver
-getDeliveryHistory: builder.query({
-  query: (receiverId ) => ({
-    url: `/parcel/${receiverId}/history`,
-    method: "GET",
-    
-  }),
-  providesTags: ["PARCELS"],
-}),
+    getDeliveryHistory: builder.query({
+      query: (receiverId) => ({
+        url: `/parcel/${receiverId}/history`,
+        method: "GET",
+
+      }),
+      providesTags: ["PARCELS"],
+    }),
 
 
 
 
- // incoming parcels
+    // incoming parcels
     getIncomingParcel: builder.query({
       query: (params) => ({
         url: "/parcel/incoming",
@@ -94,6 +94,13 @@ getDeliveryHistory: builder.query({
     }),
 
 
+    //
+    trackParcel: builder.query({
+      query: (trackingId: string) => ({
+        url: `/parcel/track/${trackingId}`,
+        method: "GET",
+      }),
+    }),
 
 
 
@@ -114,4 +121,5 @@ export const {
   useConfirmDeliveryMutation,
   useGetDeliveryHistoryQuery,
   useUpdateParcelStatusMutation,
+  useTrackParcelQuery,
 } = parcelAPi;

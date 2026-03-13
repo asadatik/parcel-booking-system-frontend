@@ -22,6 +22,7 @@ const publicMenuItems: MenuItem[] = [
   { title: "Home", url: "/" },
   { title: "About", url: "/about" },
   { title: "Contact", url: "/contact" },
+  { title: "Track Parcel", url: "/track" },
 
 ];
 
@@ -67,7 +68,7 @@ const Navbar = () => {
   }
 
   return (
-    <section className=" sticky top-0 left-0 right-0 z-50  py-4 bg-gradient-to-r from-emerald-100 via-cyan-100 to-orange-50 dark:from-emerald-950 dark:via-background dark:to-orange-950/50 backdrop-blur-sm border-b border-emerald-100 dark:border-emerald-800/30">
+    <section className=" sticky top-0 left-0 right-0 z-50  py-2 bg-gradient-to-r from-emerald-100 via-cyan-100 to-orange-50 dark:from-emerald-950 dark:via-background dark:to-orange-950/50 backdrop-blur-sm border-b border-emerald-100 dark:border-emerald-800/30">
       <div className="container mx-auto ">
         {/* Desktop Menu */}
         <nav className="hidden    justify-between lg:flex    items-center">
@@ -219,7 +220,7 @@ const Navbar = () => {
                   </SheetTitle>
                 </SheetHeader>
 
-                <div className="flex flex-col gap-6 p-4">
+                <div className="flex flex-col gap-6 p-2">
                   <Accordion type="single" collapsible className="flex w-full flex-col gap-4">
                     {/**/}
                     {publicMenuItems.map(renderMobileMenuItem)}

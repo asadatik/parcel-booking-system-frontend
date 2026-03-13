@@ -16,33 +16,26 @@ import Contact from "@/pages/public/Contact";
 import { receiverSidebarItems } from "./receiverSideBarItems";
 import NotFound from "@/pages/NotFound";
 
+import TrackParcelResultPage from "@/pages/public/TrackParcelResultPage";
+import TrackParcelPage from "@/pages/public/TrackParcelPage";
 
 export const router = createBrowserRouter([
+  //general routes
   {
     Component: App,
     path: "/",
-     errorElement: <NotFound />,
+    errorElement: <NotFound />,
     children: [
-            {
-        index: true,
-        Component: Home   
-      },
-      {
-        Component: Contact,
-        path: "contact",
-      },
-
-      {
-        Component: About,
-        path: "about",
-      },
+      { index: true, Component: Home },
+      { path: "contact", Component: Contact },
+      { path: "about", Component: About },
+      { path: "track", Component: TrackParcelPage },
+      { path: "track/:trackingId", Component: TrackParcelResultPage },
     ],
-
-
-    
   },
-//
- {
+
+  // Admin dashboard
+  {
     Component: withAuth(DashboardLayout, role.ADMIN as TRole),
     path: "/admin",
     children: [
@@ -51,55 +44,28 @@ export const router = createBrowserRouter([
     ],
   },
 
+  // Sender dashboard
   {
     Component: withAuth(DashboardLayout, role.SENDER as TRole),
     path: "/sender",
     children: [
-      { index: true, element: <Navigate to="/sender/my-profile"></Navigate> },
-
-      
+      { index: true, element: <Navigate to="/sender/my-profile" /> },
       ...generateRoutes(senderSidebarItems),
     ],
   },
+
+  // Receiver dashboard
   {
     Component: withAuth(DashboardLayout, role.RECEIVER as TRole),
     path: "/receiver",
     children: [
-      { index: true, element: <Navigate to="/receiver/my-profile"></Navigate> },
-
-    
+      { index: true, element: <Navigate to="/receiver/my-profile" /> },
       ...generateRoutes(receiverSidebarItems),
     ],
   },
 
-
-//
-
-
-  // {
-  //   Component: withAuth(DashboardLayout, role.user as TRole),
-  //   path: "/user",
-  //   children: [
-  //     { index: true, element: <Navigate to="/user/bookings" /> },
-  //     ...generateRoutes(userSidebarItems),
-  //   ],
-  // },
-
-//
-    {
-    Component: Login,
-    path: "/login",
-  },
-  {
-    Component: Register,
-    path: "/register",
-  },
-  {
-
-
-    Component: Verify,
-    path: "/verify",
-
-    
-  },
+  // Auth routes
+  { path: "/login", Component: Login },
+  { path: "/register", Component: Register },
+  { path: "/verify", Component: Verify },
 ]);
