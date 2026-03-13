@@ -23,7 +23,7 @@ const
             data,
             params,
             headers,
-            withCredentials: true, // 👈 Cookie/token automatic include হবে 
+            withCredentials: true, //Cookie/token automatic include হবে 
           });
 
           return { data: result.data };

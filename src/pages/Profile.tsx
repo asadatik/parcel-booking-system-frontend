@@ -1,5 +1,4 @@
 
-
 import { EditPassword } from "@/components/modules/modal/EditPassword"
 // import { ProfileUpdateModal } from "@/components/modules/modal/ProfileUpdateModal";
 import Loader from "@/components/modules/shared/Loading"
@@ -36,7 +35,7 @@ const Profile = () => {
     transition={{ duration: 0.6, ease: "easeOut" }}
     className="flex flex-col items-center gap-6"
   >
-    {/* Avatar Section */}
+
     <div className="relative group">
       <div className="absolute inset-0 bg-gradient-to-r from-emerald-500 via-orange-400 to-orange-600 rounded-full p-1 animate-pulse group-hover:animate-none transition" />
       <div className="bg-white rounded-full p-1 shadow-lg">
@@ -141,7 +140,7 @@ const Profile = () => {
                   </div>
                 </motion.div>
 
-                {/* Account Status Badge */}
+          
                 <motion.div
                   whileHover={{ scale: 1.05 }}
                   className={`flex items-center gap-3 p-4 rounded-2xl border ${
