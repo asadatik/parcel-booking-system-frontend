@@ -20,9 +20,10 @@ interface MenuItem {
 //PUBLIC 
 const publicMenuItems: MenuItem[] = [
   { title: "Home", url: "/" },
+    { title: "Track Parcel", url: "/track" },
   { title: "About", url: "/about" },
   { title: "Contact", url: "/contact" },
-  { title: "Track Parcel", url: "/track" },
+
 
 ];
 
