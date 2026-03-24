@@ -9,7 +9,7 @@ import { Link, NavLink } from "react-router";
 import { toast } from "sonner";
 import Loader from "../modules/shared/Loading";
 import ProfileButton from "../modules/shared/ProfileButton";
-import { ModeToggle } from "./ModeToggler";
+// import { ModeToggle } from "./ModeToggler";
 import { useEffect } from "react";
 
 interface MenuItem {
@@ -69,7 +69,7 @@ const Navbar = () => {
   }
 
   return (
-    <section className=" sticky top-0 left-0 right-0 z-50  py-2 bg-gradient-to-r from-emerald-100 via-cyan-100 to-orange-50 dark:from-emerald-950 dark:via-background dark:to-orange-950/50 backdrop-blur-sm border-b border-emerald-100 dark:border-emerald-800/30">
+    <section className=" sticky top-0 left-0 right-0 z-50  py-2 bg-gradient-to-r from-emerald-100 via-emerald-100 to-cyan-100 dark:from-emerald-950 dark:via-background dark:to-orange-950/50 backdrop-blur-sm border-b border-emerald-100 dark:border-emerald-800/30">
       <div className="container mx-auto ">
         {/* Desktop Menu */}
         <nav className="hidden    justify-between lg:flex    items-center">
@@ -105,9 +105,9 @@ const Navbar = () => {
           <div className="flex items-center gap-3">
 
 
-            <div className="p-1 rounded-lg bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border border-emerald-100 dark:border-emerald-800/30">
+            {/* <div className="p-1 rounded-lg bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border border-emerald-100 dark:border-emerald-800/30">
               <ModeToggle />
-            </div>
+            </div> */}
             {/* User Actions */}
             {user?.data?.email ? (
               <div className="flex items-center gap-3">
@@ -186,9 +186,7 @@ const Navbar = () => {
             </NavLink>
             <Sheet>
               <div className="flex gap-3 items-center">
-                <div className="p-1 rounded-lg bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border border-emerald-100 dark:border-emerald-800/30">
-                  <ModeToggle />
-                </div>
+            
                 <SheetTrigger asChild>
                   <Button
                     variant="outline"
