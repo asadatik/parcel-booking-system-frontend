@@ -85,15 +85,15 @@ const HeroSection = () => {
 
   return (
     <section className="relative overflow-hidden min-h-[92vh] flex items-center bg-[#022c22]">
-      {/* ── Layered background ── */}
+     
       <div className="absolute inset-0 bg-gradient-to-br from-emerald-950 via-[#022c22] to-teal-950" />
 
-      {/* Radial glow blobs */}
+
       <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-emerald-500/10 rounded-full blur-3xl -translate-y-1/2" />
       <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-orange-500/10 rounded-full blur-3xl translate-y-1/3" />
       <div className="absolute top-1/2 left-0 w-[300px] h-[300px] bg-teal-400/8 rounded-full blur-2xl -translate-y-1/2" />
 
-      {/* Dot-grid texture overlay */}
+   
       <div
         className="absolute inset-0 opacity-[0.07]"
         style={{
@@ -102,7 +102,7 @@ const HeroSection = () => {
         }}
       />
 
-      {/* Diagonal decorative stripe */}
+  
       <div className="absolute -right-32 top-0 h-full w-[500px] bg-gradient-to-l from-emerald-800/20 to-transparent skew-x-[-12deg] pointer-events-none" />
 
       {/* ── Content ── */}
@@ -113,14 +113,14 @@ const HeroSection = () => {
           animate="animate"
           variants={staggerContainer}
         >
-          {/* Badge */}
+      
           <motion.div variants={fadeInUp} className="flex justify-center mb-8">
             <Badge className="bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-500/25 transition-colors backdrop-blur-sm px-4 py-1.5 text-sm font-medium tracking-wide rounded-full">
               🚀 Now serving 50+ cities nationwide
             </Badge>
           </motion.div>
 
-          {/* Headline */}
+        
           <motion.h1
             className="text-center text-5xl md:text-7xl lg:text-8xl font-extrabold mb-6 leading-[1.05] tracking-tight text-white"
             variants={fadeInUp}
@@ -130,7 +130,7 @@ const HeroSection = () => {
               <span className="bg-gradient-to-r from-emerald-400 via-teal-300 to-emerald-400 bg-clip-text text-transparent">
                 Anything,
               </span>
-              {/* underline glow */}
+        
               <span className="absolute -bottom-1 left-0 right-0 h-px bg-gradient-to-r from-emerald-500/0 via-emerald-400/60 to-emerald-500/0" />
             </span>
             <br />
@@ -139,7 +139,7 @@ const HeroSection = () => {
             </span>
           </motion.h1>
 
-          {/* Sub-headline */}
+  
           <motion.p
             className="text-center text-lg md:text-xl text-emerald-100/70 max-w-2xl mx-auto mb-10 leading-relaxed"
             variants={fadeInUp}
